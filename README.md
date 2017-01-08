@@ -1,4 +1,1 @@
-symfony_ddd
-===========
-
-A Symfony project created on January 7, 2017, 12:26 am.
+#WIP Test project. Catalog API REST, on Symfony, with DDD, CQRS, ES
