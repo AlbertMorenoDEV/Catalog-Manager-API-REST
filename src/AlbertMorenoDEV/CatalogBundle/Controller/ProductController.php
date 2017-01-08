@@ -78,14 +78,14 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $validator = $this->get('validator');
         $errors = $validator->validate($product);
         if (count($errors) > 0) {
-            return $this->json(['errors' => $errors], Response::HTTP_NOT_ACCEPTABLE);
+            return $this->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
         }
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($product);
         $em->flush();
 
-        return $this->json(["id" => $product->getId()]);
+        return $this->json($product, Response::HTTP_CREATED);
     }
 
     /**
@@ -129,12 +129,12 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $validator = $this->get('validator');
         $errors = $validator->validate($product);
         if (count($errors) > 0) {
-            return $this->json(['errors' => $errors], Response::HTTP_NOT_ACCEPTABLE);
+            return $this->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
         }
 
         $em->flush();
 
-        return $this->json($product);
+        return $this->json($product, Response::HTTP_OK);
     }
 
     /**
@@ -166,7 +166,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $em->remove($product);
         $em->flush();
 
-        return $this->json($product);
+        return $this->json($product, Response::HTTP_OK);
     }
 
     /**

@@ -1,5 +1,4 @@
 <?php
-
 namespace AlbertMorenoDEV\CatalogBundle\Controller;
 
 use AlbertMorenoDEV\CatalogBundle\Entity\Family;
@@ -52,14 +51,14 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
         $validator = $this->get('validator');
         $errors = $validator->validate($family);
         if (count($errors) > 0) {
-            return $this->json(['errors' => $errors], Response::HTTP_NOT_ACCEPTABLE);
+            return $this->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
         }
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($family);
         $em->flush();
 
-        return $this->json($family);
+        return $this->json($family, Response::HTTP_CREATED);
     }
 
     /**
@@ -94,12 +93,12 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
         $validator = $this->get('validator');
         $errors = $validator->validate($family);
         if (count($errors) > 0) {
-            return $this->json(['errors' => $errors], Response::HTTP_NOT_ACCEPTABLE);
+            return $this->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
         }
 
         $em->flush();
 
-        return $this->json($family);
+        return $this->json($family, Response::HTTP_OK);
     }
 
     /**
@@ -130,7 +129,7 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
         $em->remove($family);
         $em->flush();
 
-        return $this->json($family);
+        return $this->json($family, Response::HTTP_OK);
     }
 
     /**
