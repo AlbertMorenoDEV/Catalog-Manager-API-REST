@@ -1,0 +1,25 @@
+AlbertMorenoDEV\CatalogBundle\Entity\Product:
+    type: entity
+    table: null
+    repositoryClass: AlbertMorenoDEV\CatalogBundle\Repository\ProductRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        description:
+            type: string
+            length: 255
+        familyId:
+            type: integer
+            column: family_id
+    manyToOne:
+        family:
+            targetEntity: Family
+            inversedBy: products
+            joinColumn:
+                name: family_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

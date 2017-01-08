@@ -1,0 +1,4 @@
+services:
+#    albert_moreno_dev_catalog.example:
+#        class: AlbertMorenoDEV\CatalogBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

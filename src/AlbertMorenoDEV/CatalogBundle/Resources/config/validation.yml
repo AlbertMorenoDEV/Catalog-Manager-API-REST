@@ -1,0 +1,21 @@
+AlbertMorenoDEV\CatalogBundle\Entity\Family:
+    properties:
+        name:
+            - NotBlank: ~
+            - NotNull: ~
+            - Length:
+                min: 2
+                max: 255
+                minMessage: "The name must be at least {{ limit }} characters length"
+                maxMessage: "The name cannot be longer than {{ limit }} characters length"
+
+AlbertMorenoDEV\CatalogBundle\Entity\Product:
+    properties:
+        description:
+            - NotBlank: ~
+            - NotNull: ~
+            - Length:
+                min: 2
+                max: 255
+                minMessage: "The description must be at least {{ limit }} characters length"
+                maxMessage: "The description cannot be longer than {{ limit }} characters length"
