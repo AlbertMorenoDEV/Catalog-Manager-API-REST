@@ -1,6 +1,6 @@
 <?php
 
-namespace AlbertMorenoDEV\CatalogBundle\Entity;
+namespace AppBundle\Entity;
 
 /**
  * Product

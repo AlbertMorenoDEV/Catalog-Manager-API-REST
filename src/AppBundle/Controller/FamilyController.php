@@ -1,7 +1,7 @@
 <?php
-namespace AlbertMorenoDEV\CatalogBundle\Controller;
+namespace AppBundle\Controller;
 
-use AlbertMorenoDEV\CatalogBundle\Entity\Family;
+use AppBundle\Entity\Family;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,7 +23,7 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
      */
     public function cgetAction()
     {
-        $repository = $this->getDoctrine()->getRepository('AlbertMorenoDEVCatalogBundle:Family');
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Family');
 
         $families = $repository->findAll();
 
@@ -82,7 +82,7 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
     public function putAction(Request $request, $familyId)
     {
         $em = $this->getDoctrine()->getManager();
-        $family = $em->getRepository('AlbertMorenoDEVCatalogBundle:Family')->find($familyId);
+        $family = $em->getRepository('AppBundle:Family')->find($familyId);
 
         if (!$family) {
             throw $this->createNotFoundException('No family found for id '.$familyId);
@@ -120,7 +120,7 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
     public function deleteAction($familyId)
     {
         $em = $this->getDoctrine()->getManager();
-        $family = $em->getRepository('AlbertMorenoDEVCatalogBundle:Family')->find($familyId);
+        $family = $em->getRepository('AppBundle:Family')->find($familyId);
 
         if (!$family) {
             throw $this->createNotFoundException('No family found for id '.$familyId);
@@ -151,7 +151,7 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
     public function getAction($familyId)
     {
         $family = $this->getDoctrine()
-            ->getRepository('AlbertMorenoDEVCatalogBundle:Family')
+            ->getRepository('AppBundle:Family')
             ->find($familyId);
 
         if (!$family) {

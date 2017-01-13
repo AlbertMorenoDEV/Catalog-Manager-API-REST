@@ -1,10 +1,10 @@
 <?php
 
-namespace AlbertMorenoDEV\CatalogBundle\Tests\Controller;
+namespace Tests\AppBundle\Controller;
 
-use AlbertMorenoDEV\CatalogBundle\Entity\Family;
-use AlbertMorenoDEV\CatalogBundle\Entity\Product;
-use AlbertMorenoDEV\CatalogBundle\Tests\Fixtures\Entity\LoadData;
+use AppBundle\Entity\Family;
+use AppBundle\Entity\Product;
+use Tests\AppBundle\Fixtures\Entity\LoadData;
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;

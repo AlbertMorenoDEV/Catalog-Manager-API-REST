@@ -1,6 +1,6 @@
 <?php
 
-namespace AlbertMorenoDEV\CatalogBundle\Repository;
+namespace AppBundle\Repository;
 
 /**
  * ProductRepository

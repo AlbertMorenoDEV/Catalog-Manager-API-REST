@@ -1,7 +1,7 @@
-AlbertMorenoDEV\CatalogBundle\Entity\Family:
+AppBundle\Entity\Family:
     type: entity
     table: null
-    repositoryClass: AlbertMorenoDEV\CatalogBundle\Repository\FamilyRepository
+    repositoryClass: AppBundle\Repository\FamilyRepository
     id:
         id:
             type: integer

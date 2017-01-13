@@ -1,9 +1,0 @@
-families:
-    type:           rest
-    resource:       AlbertMorenoDEV\CatalogBundle\Controller\FamilyController
-    name_prefix:    api_
-
-products:
-    type:           rest
-    resource:       AlbertMorenoDEV\CatalogBundle\Controller\ProductController
-    name_prefix:    api_

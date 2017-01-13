@@ -1,0 +1,9 @@
+families:
+    type:           rest
+    resource:       AppBundle\Controller\FamilyController
+    name_prefix:    api_
+
+products:
+    type:           rest
+    resource:       AppBundle\Controller\ProductController
+    name_prefix:    api_

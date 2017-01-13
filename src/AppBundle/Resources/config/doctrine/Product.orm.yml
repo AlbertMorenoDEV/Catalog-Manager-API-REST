@@ -1,7 +1,7 @@
-AlbertMorenoDEV\CatalogBundle\Entity\Product:
+AppBundle\Entity\Product:
     type: entity
     table: null
-    repositoryClass: AlbertMorenoDEV\CatalogBundle\Repository\ProductRepository
+    repositoryClass: AppBundle\Repository\ProductRepository
     id:
         id:
             type: integer

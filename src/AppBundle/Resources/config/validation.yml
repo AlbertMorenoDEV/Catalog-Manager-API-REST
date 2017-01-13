@@ -1,4 +1,4 @@
-AlbertMorenoDEV\CatalogBundle\Entity\Family:
+AppBundle\Entity\Family:
     properties:
         name:
             - NotBlank: ~
@@ -9,7 +9,7 @@ AlbertMorenoDEV\CatalogBundle\Entity\Family:
                 minMessage: "The name must be at least {{ limit }} characters length"
                 maxMessage: "The name cannot be longer than {{ limit }} characters length"
 
-AlbertMorenoDEV\CatalogBundle\Entity\Product:
+AppBundle\Entity\Product:
     properties:
         description:
             - NotBlank: ~

@@ -1,12 +1,8 @@
-albert_moreno_dev_catalog:
+catalog:
     type:       rest
     prefix:     /api
-    resource:   "@AlbertMorenoDEVCatalogBundle/Resources/config/routing.yml"
+    resource:   "@AppBundle/Resources/config/routing.yml"
 
 NelmioApiDocBundle:
     resource:   "@NelmioApiDocBundle/Resources/config/routing.yml"
     prefix:     /api/doc
-
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation

@@ -1,5 +1,5 @@
 <?php
-namespace AlbertMorenoDEV\CatalogBundle\Entity;
+namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

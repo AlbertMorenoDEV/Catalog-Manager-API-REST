@@ -1,8 +1,8 @@
 <?php
-namespace AlbertMorenoDEV\CatalogBundle\Tests\Fixtures\Entity;
+namespace Tests\AppBundle\Fixtures\Entity;
 
-use AlbertMorenoDEV\CatalogBundle\Entity\Family;
-use AlbertMorenoDEV\CatalogBundle\Entity\Product;
+use AppBundle\Entity\Family;
+use AppBundle\Entity\Product;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
