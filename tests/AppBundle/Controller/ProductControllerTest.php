@@ -2,8 +2,8 @@
 
 namespace Tests\AppBundle\Controller;
 
-use AppBundle\Entity\Family;
-use AppBundle\Entity\Product;
+use AMD\Catalog\Domain\Model\Family;
+use AMD\Catalog\Domain\Model\Product;
 use Tests\AppBundle\Fixtures\Entity\LoadData;
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
@@ -77,7 +77,7 @@ class ProductControllerTest extends WebTestCase
     {
         $route = $this->getUrl('api_post_product', ['_format' => 'json']);
 
-        /** @var Family $family */
+        /** @var \AMD\Catalog\Domain\Model\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
         $this->client->request(
@@ -96,7 +96,7 @@ class ProductControllerTest extends WebTestCase
     {
         $route = $this->getUrl('api_post_product', ['_format' => 'json']);
 
-        /** @var Family $family */
+        /** @var \AMD\Catalog\Domain\Model\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
         $this->client->request(

@@ -1,6 +1,5 @@
 <?php
-
-namespace AppBundle\Entity;
+namespace AMD\Catalog\Domain\Model;
 
 /**
  * Product

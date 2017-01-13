@@ -1,8 +1,8 @@
 <?php
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Family;
-use AppBundle\Entity\Product;
+use AMD\Catalog\Domain\Model\Family;
+use AMD\Catalog\Domain\Model\Product;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -28,7 +28,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function cgetAction()
     {
-        $repository = $this->getDoctrine()->getRepository('AppBundle:Product');
+        $repository = $this->getDoctrine()->getRepository('AMD:Product');
 
         $products = $repository->findAll();
 
@@ -65,7 +65,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
     {
         $em = $this->getDoctrine()->getManager();
         /** @var Family $family */
-        $family = $em->getRepository('AppBundle:Family')->find($request->get('family_id'));
+        $family = $em->getRepository('AMD:Family')->find($request->get('family_id'));
 
         if (!$family) {
             throw $this->createNotFoundException('No family found for id '.$request->get('family_id'));
@@ -111,13 +111,13 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $em = $this->getDoctrine()->getManager();
 
         /** @var Product $product */
-        $product = $em->getRepository('AppBundle:Product')->find($productId);
+        $product = $em->getRepository('AMD:Product')->find($productId);
         if (!$product) {
             throw $this->createNotFoundException('No product found for id '.$productId);
         }
 
         /** @var Family $family */
-        $family = $em->getRepository('AppBundle:Family')->find($request->get('family_id'));
+        $family = $em->getRepository('AMD:Family')->find($request->get('family_id'));
 
         if (!$family) {
             throw $this->createNotFoundException('No family found for id '.$request->get('family_id'));
@@ -157,7 +157,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
     public function deleteAction($productId)
     {
         $em = $this->getDoctrine()->getManager();
-        $product = $em->getRepository('AppBundle:Product')->find($productId);
+        $product = $em->getRepository('AMD:Product')->find($productId);
 
         if (!$product) {
             throw $this->createNotFoundException('No product found for id '.$productId);
@@ -188,7 +188,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
     public function getAction($productId)
     {
         $product = $this->getDoctrine()
-            ->getRepository('AppBundle:Product')
+            ->getRepository('AMD:Product')
             ->find($productId);
 
         if (!$product) {

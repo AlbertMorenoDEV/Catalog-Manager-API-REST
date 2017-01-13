@@ -4,7 +4,8 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "": "src/"
+            "": "src/",
+            "AMD\\": "src/AlbertMorenoDEV/"
         },
         "classmap": [
             "app/AppKernel.php",

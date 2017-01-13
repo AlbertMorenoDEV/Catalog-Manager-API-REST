@@ -1,7 +1,7 @@
 <?php
 namespace Tests\AppBundle\Controller;
 
-use AppBundle\Entity\Family;
+use AMD\Catalog\Domain\Model\Family;
 use Tests\AppBundle\Fixtures\Entity\LoadData;
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
@@ -29,7 +29,7 @@ class FamilyControllerTest extends WebTestCase
 
     public function testJsonGetFamiliesAction()
     {
-        /** @var Family $family */
+        /** @var \AMD\Catalog\Domain\Model\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
         $route = $this->getUrl('api_get_families', ['_format' => 'json']);
@@ -47,7 +47,7 @@ class FamilyControllerTest extends WebTestCase
 
     public function testJsonGetFamilyAction()
     {
-        /** @var Family $family */
+        /** @var \AMD\Catalog\Domain\Model\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
         $route = $this->getUrl('api_get_family', ['familyId' => $family->getId(), '_format' => 'json']);
@@ -105,7 +105,7 @@ class FamilyControllerTest extends WebTestCase
 
     public function testJsonPutFamilyActionShouldModify()
     {
-        /** @var Family $family */
+        /** @var \AMD\Catalog\Domain\Model\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
         $route = $this->getUrl('api_put_family', ['familyId' => $family->getId(), '_format' => 'json']);
@@ -123,7 +123,7 @@ class FamilyControllerTest extends WebTestCase
 
     public function testJsonPutFamilyActionBadParameters()
     {
-        /** @var Family $family */
+        /** @var \AMD\Catalog\Domain\Model\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
         $route = $this->getUrl('api_put_family', ['familyId' => $family->getId(), '_format' => 'json']);
@@ -156,7 +156,7 @@ class FamilyControllerTest extends WebTestCase
 
     public function testJsonDeleteFamilyAction()
     {
-        /** @var Family $family */
+        /** @var \AMD\Catalog\Domain\Model\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
         $route = $this->getUrl('api_get_family', ['familyId' => $family->getId(), '_format' => 'json']);

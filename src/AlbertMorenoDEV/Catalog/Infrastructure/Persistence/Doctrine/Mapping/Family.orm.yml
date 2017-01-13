@@ -1,7 +1,7 @@
-AppBundle\Entity\Family:
+AMD\Catalog\Domain\Model\Family:
     type: entity
     table: null
-    repositoryClass: AppBundle\Repository\FamilyRepository
+    repositoryClass: AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineFamilyRepository
     id:
         id:
             type: integer

@@ -1,8 +1,8 @@
 <?php
 namespace Tests\AppBundle\Fixtures\Entity;
 
-use AppBundle\Entity\Family;
-use AppBundle\Entity\Product;
+use AMD\Catalog\Domain\Model\Family;
+use AMD\Catalog\Domain\Model\Product;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;

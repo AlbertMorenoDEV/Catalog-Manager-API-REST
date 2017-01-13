@@ -1,4 +1,4 @@
-AppBundle\Entity\Family:
+AMD\Catalog\Domain\Model\Family:
     properties:
         name:
             - NotBlank: ~
@@ -9,7 +9,7 @@ AppBundle\Entity\Family:
                 minMessage: "The name must be at least {{ limit }} characters length"
                 maxMessage: "The name cannot be longer than {{ limit }} characters length"
 
-AppBundle\Entity\Product:
+AMD\Catalog\Domain\Model\Product:
     properties:
         description:
             - NotBlank: ~
