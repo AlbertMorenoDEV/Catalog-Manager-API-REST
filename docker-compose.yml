@@ -1,0 +1,41 @@
+version: '2'
+services:
+  app:
+    build:
+      context: ./docker/app
+      dockerfile: Dockerfile
+    image: amd/app
+    volumes:
+     - .:/var/www/html
+    ports:
+     - "80:80"
+    networks:
+     - amdnet
+  mysql:
+    image: mysql:5.7
+    ports:
+     - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_DATABASE: "symfony_ddd"
+      MYSQL_USER: "symfony_ddd"
+      MYSQL_PASSWORD: "symfony_ddd"
+    volumes:
+     - mysqldata:/var/lib/mysql
+    networks:
+     - amdnet
+  redis:
+    image: redis:alpine
+    volumes:
+     - redisdata:/data
+    networks:
+     - amdnet
+networks:
+  amdnet:
+    driver: "bridge"
+volumes:
+  mysqldata:
+    driver: "local"
+  redisdata:
+    driver: "local"
+
