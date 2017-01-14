@@ -1,7 +1,10 @@
 <?php
 namespace AppBundle\Controller;
 
+use AMD\Catalog\Application\AddFamilyRequest;
+use AMD\Catalog\Application\AddFamilyService;
 use AMD\Catalog\Domain\Model\Family;
+use AMD\Catalog\Domain\Model\InvalidFamilyDataException;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -45,20 +48,14 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
      */
     public function postAction(Request $request)
     {
-        $family = new Family();
-        $family->setName($request->get('name'));
+        $createFamilyService = $this->get('catalog.add.family.service');
 
-        $validator = $this->get('validator');
-        $errors = $validator->validate($family);
-        if (count($errors) > 0) {
-            return $this->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
+        try {
+            $response = $createFamilyService->execute(new AddFamilyRequest($request->get('name')));
+            return $this->json($response, Response::HTTP_CREATED);
+        } catch (InvalidFamilyDataException $e) {
+            return $this->json(['errors' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         }
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($family);
-        $em->flush();
-
-        return $this->json($family, Response::HTTP_CREATED);
     }
 
     /**
