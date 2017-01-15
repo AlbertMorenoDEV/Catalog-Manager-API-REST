@@ -6,13 +6,9 @@ class AddFamilyRequest
     /** @var  string */
     private $name;
 
-    /** @var  int */
-    private $familyId;
-
-    public function __construct($name, $familyId)
+    public function __construct($name)
     {
         $this->name = $name;
-        $this->familyId = $familyId;
     }
 
     /**
@@ -21,13 +17,5 @@ class AddFamilyRequest
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * @return int
-     */
-    public function getFamilyId()
-    {
-        return $this->familyId;
     }
 }
