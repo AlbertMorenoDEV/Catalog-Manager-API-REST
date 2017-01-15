@@ -188,6 +188,7 @@ class FamilyControllerTest extends WebTestCase
 
     /**
      * @test
+     * @group family
      */
     public function deleteFamilyAction()
     {
@@ -203,6 +204,7 @@ class FamilyControllerTest extends WebTestCase
 
     /**
      * @test
+     * @group family
      */
     public function deleteFamilyActionNotFound()
     {

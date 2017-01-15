@@ -15,7 +15,13 @@ class DoctrineFamilyRepository extends EntityRepository implements FamilyReposit
 
     public function update(Family $family)
     {
-        $this->_em->flush();
+        $this->_em->flush(); // ToDo: Must be moved to Application layer, but where exactly?
+    }
+
+    public function remove(Family $family)
+    {
+        $this->_em->remove($family);
+        $this->_em->flush(); // ToDo: Must be moved to Application layer, but where exactly?
     }
 
     public function findById($familyId)

@@ -3,6 +3,8 @@ namespace AppBundle\Controller;
 
 use AMD\Catalog\Application\AddFamilyRequest;
 use AMD\Catalog\Application\AddFamilyService;
+use AMD\Catalog\Application\RemoveFamilyRequest;
+use AMD\Catalog\Application\RemoveFamilyService;
 use AMD\Catalog\Application\UpdateFamilyRequest;
 use AMD\Catalog\Application\UpdateFamilyService;
 use AMD\Catalog\Domain\Model\Family;
@@ -90,10 +92,10 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
         $entity_manager = $this->getDoctrine()->getManager();
         $repository = $entity_manager->getRepository(Family::class);
 
-        $createFamilyService = new UpdateFamilyService($repository);
+        $updateFamilyService = new UpdateFamilyService($repository);
 
         try {
-            $response = $createFamilyService->execute(new UpdateFamilyRequest($familyId, $request->get('name')));
+            $response = $updateFamilyService->execute(new UpdateFamilyRequest($familyId, $request->get('name')));
             return $this->json($response, Response::HTTP_OK);
         } catch (FamilyNotFoundException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);
@@ -120,17 +122,17 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
      */
     public function deleteAction($familyId)
     {
-        $em = $this->getDoctrine()->getManager();
-        $family = $em->getRepository('AMD:Family')->find($familyId);
+        $entity_manager = $this->getDoctrine()->getManager();
+        $repository = $entity_manager->getRepository(Family::class);
 
-        if (!$family) {
-            throw $this->createNotFoundException('No family found for id '.$familyId);
+        $removeFamilyService = new RemoveFamilyService($repository);
+
+        try {
+            $response = $removeFamilyService->execute(new RemoveFamilyRequest($familyId));
+            return $this->json($response, Response::HTTP_OK);
+        } catch (FamilyNotFoundException $e) {
+            return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);
         }
-
-        $em->remove($family);
-        $em->flush();
-
-        return $this->json($family, Response::HTTP_OK);
     }
 
     /**
