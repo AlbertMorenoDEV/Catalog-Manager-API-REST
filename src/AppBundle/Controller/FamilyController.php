@@ -3,7 +3,10 @@ namespace AppBundle\Controller;
 
 use AMD\Catalog\Application\AddFamilyRequest;
 use AMD\Catalog\Application\AddFamilyService;
+use AMD\Catalog\Application\UpdateFamilyRequest;
+use AMD\Catalog\Application\UpdateFamilyService;
 use AMD\Catalog\Domain\Model\Family;
+use AMD\Catalog\Domain\Model\FamilyNotFoundException;
 use AMD\Catalog\Domain\Model\InvalidFamilyDataException;
 use AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineFamilyRepository;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -84,24 +87,19 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
      */
     public function putAction(Request $request, $familyId)
     {
-        $em = $this->getDoctrine()->getManager();
-        $family = $em->getRepository('AMD:Family')->find($familyId);
+        $entity_manager = $this->getDoctrine()->getManager();
+        $repository = $entity_manager->getRepository(Family::class);
 
-        if (!$family) {
-            throw $this->createNotFoundException('No family found for id '.$familyId);
+        $createFamilyService = new UpdateFamilyService($repository);
+
+        try {
+            $response = $createFamilyService->execute(new UpdateFamilyRequest($familyId, $request->get('name')));
+            return $this->json($response, Response::HTTP_OK);
+        } catch (FamilyNotFoundException $e) {
+            return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);
+        } catch (InvalidFamilyDataException $e) {
+            return $this->json(['errors' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         }
-
-        $family->setName($request->get('name'));
-
-        $validator = $this->get('validator');
-        $errors = $validator->validate($family);
-        if (count($errors) > 0) {
-            return $this->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
-        }
-
-        $em->flush();
-
-        return $this->json($family, Response::HTTP_OK);
     }
 
     /**

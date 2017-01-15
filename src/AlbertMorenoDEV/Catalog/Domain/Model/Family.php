@@ -35,7 +35,7 @@ class Family
         $this->products = new ArrayCollection();
     }
 
-    private function setName($name)
+    public function setName($name)
     {
         $this->assertNotEmpty($name);
         $this->assertNotTooShort($name);
