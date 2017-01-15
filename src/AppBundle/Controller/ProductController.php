@@ -8,6 +8,7 @@ use AMD\Catalog\Application\RemoveProductService;
 use AMD\Catalog\Application\UpdateProductRequest;
 use AMD\Catalog\Application\UpdateProductService;
 use AMD\Catalog\Domain\Model\Family;
+use AMD\Catalog\Domain\Model\FamilyNotFoundException;
 use AMD\Catalog\Domain\Model\InvalidProductDataException;
 use AMD\Catalog\Domain\Model\Product;
 use AMD\Catalog\Domain\Model\ProductNotFoundException;
@@ -91,13 +92,16 @@ class ProductController extends FOSRestController implements ClassResourceInterf
     public function postAction(Request $request)
     {
         $entity_manager = $this->getDoctrine()->getManager();
-        $repository = $entity_manager->getRepository(Product::class);
+        $familyRepository = $entity_manager->getRepository(Family::class);
+        $productRepository = $entity_manager->getRepository(Product::class);
 
-        $addProductService = new AddProductService($repository);
+        $addProductService = new AddProductService($familyRepository, $productRepository);
 
         try {
             $response = $addProductService->execute(new AddProductRequest($request->get('description'), $request->get('family_id')));
             return $this->json($response, Response::HTTP_CREATED);
+        } catch (FamilyNotFoundException $e) {
+            return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);
         } catch (InvalidProductDataException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         }
@@ -124,15 +128,18 @@ class ProductController extends FOSRestController implements ClassResourceInterf
     public function putAction(Request $request, $productId)
     {
         $entity_manager = $this->getDoctrine()->getManager();
-        $repository = $entity_manager->getRepository(Product::class);
+        $familyRepository = $entity_manager->getRepository(Family::class);
+        $productRepository = $entity_manager->getRepository(Product::class);
 
-        $updateFamilyService = new UpdateProductService($repository);
+        $updateFamilyService = new UpdateProductService($familyRepository, $productRepository);
 
         try {
             $response = $updateFamilyService->execute(new UpdateProductRequest($productId, $request->get('description'), $request->get('family_id')));
             return $this->json($response, Response::HTTP_OK);
         } catch (ProductNotFoundException $e) {
             // ToDo: Maybe a app controller shouldn't know about domain exception directly?
+            return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);
+        } catch (FamilyNotFoundException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);
         } catch (InvalidProductDataException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_BAD_REQUEST);

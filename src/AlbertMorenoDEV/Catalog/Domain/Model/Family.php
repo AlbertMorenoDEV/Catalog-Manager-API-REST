@@ -23,16 +23,10 @@ class Family
      */
     private $name;
 
-    /**
-     * @var ArrayCollection
-     */
-    private $products;
-
     public function __construct($id, $name)
     {
         $this->id = $id;
         $this->setName($name);
-        $this->products = new ArrayCollection();
     }
 
     public function setName($name): self
@@ -44,6 +38,11 @@ class Family
 
         $this->name = $name;
         return $this;
+    }
+
+    public function makeProduct($productId, string $description): Product
+    {
+        return new Product($productId, $description, $this->getId());
     }
 
     private function assertNotEmpty($name)

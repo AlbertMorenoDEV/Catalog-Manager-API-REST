@@ -1,24 +1,15 @@
 <?php
 namespace AMD\Catalog\Application;
 
-use AMD\Catalog\Domain\Model\Product;
-use AMD\Catalog\Domain\Model\ProductRepository;
-
-class AddProductService
+class AddProductService extends ProductService
 {
-    /** @var ProductRepository */
-    private $repository;
-
-    public function __construct(ProductRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
     public function execute(AddProductRequest $request): AddProductResponse
     {
-        $product = new Product(null, $request->getDescription(), $request->getFamilyId());
+        $family = $this->findFamilyOrFail($request->getFamilyId());
 
-        $this->repository->add($product);
+        $product = $family->makeProduct(null, $request->getDescription());
+
+        $this->productRepository->add($product);
 
         return new AddProductResponse($product->getId(), $product->getDescription(), $product->getFamilyId());
     }

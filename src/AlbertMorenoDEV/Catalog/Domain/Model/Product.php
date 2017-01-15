@@ -25,11 +25,6 @@ class Product
      */
     private $familyId;
 
-    /**
-     * @var Family
-     */
-//    private $family;
-
     public function __construct($id, $description, $familyId)
     {
         $this->id = $id;
@@ -37,23 +32,11 @@ class Product
         $this->setFamilyId($familyId);
     }
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set description
-     *
-     * @param $description
-     *
-     * @return Product
-     */
     public function setDescription($description): self
     {
         $this->assertNotEmpty($description);
@@ -94,59 +77,21 @@ class Product
         }
     }
 
-    /**
-     * Get description
-     *
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * Set family id
-     *
-     * @param $familyId
-     *
-     * @return Product
-     */
-    public function setFamilyId($familyId): self
-    {
-        $this->assertValidFamilyId($familyId);
-
-        $this->familyId = $familyId;
-
-        return $this;
-    }
-
-    private function assertValidFamilyId($familyId)
-    {
-        // ToDo: validate if faimly exists
-    }
-
-    /**
-     * @return int
-     */
     public function getFamilyId(): int
     {
         return $this->familyId;
     }
 
-//    /**
-//     * @return Family
-//     */
-//    public function getFamily(): Family
-//    {
-//        return $this->family;
-//    }
-//
-//    /**
-//     * @param Family $family
-//     */
-//    public function setFamily(Family $family)
-//    {
-//        $this->family = $family;
-//    }
+    public function setFamilyId(int $familyId)
+    {
+        $this->familyId = $familyId;
+
+        return $this;
+    }
 }
 

@@ -137,7 +137,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function postProductActionFamilyNotFound()
     {
-        $this->markTestSkipped('ToDo: Validate family');
+//        $this->markTestSkipped('ToDo: Validate family');
 
         $route = $this->getUrl('api_post_product', ['_format' => 'json']);
 
@@ -221,7 +221,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function putProductActionFamilyNotFound()
     {
-        $this->markTestSkipped('ToDo: Validate family');
+//        $this->markTestSkipped('ToDo: Validate family');
 
         /** @var Product $product */
         $product = $this->fixtures->getReference('product-a');
