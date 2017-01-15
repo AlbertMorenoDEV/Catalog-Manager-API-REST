@@ -12,8 +12,8 @@ AMD\Catalog\Domain\Model\Family:
         name:
             type: string
             length: 255
-    oneToMany:
-        products:
-            targetEntity: Product
-            mappedBy: family
+#    oneToMany:
+#        products:
+#            targetEntity: Product
+#            mappedBy: family
     lifecycleCallbacks: {  }

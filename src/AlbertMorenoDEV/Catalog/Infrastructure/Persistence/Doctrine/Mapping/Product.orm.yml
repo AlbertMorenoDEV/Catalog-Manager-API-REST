@@ -15,11 +15,11 @@ AMD\Catalog\Domain\Model\Product:
         familyId:
             type: integer
             column: family_id
-    manyToOne:
-        family:
-            targetEntity: Family
-            inversedBy: products
-            joinColumn:
-                name: family_id
-                referencedColumnName: id
+#    manyToOne:
+#        family:
+#            targetEntity: Family
+#            inversedBy: products
+#            joinColumn:
+#                name: family_id
+#                referencedColumnName: id
     lifecycleCallbacks: {  }

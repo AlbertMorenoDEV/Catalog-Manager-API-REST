@@ -20,6 +20,6 @@ class AddFamilyService
 
         $this->repository->add($family);
 
-        return new AddFamilyResponse($family->getName());
+        return new AddFamilyResponse($family->getId(), $family->getName());
     }
 }

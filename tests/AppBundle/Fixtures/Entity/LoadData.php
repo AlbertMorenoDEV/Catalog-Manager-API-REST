@@ -19,16 +19,13 @@ class LoadData extends AbstractFixture implements FixtureInterface
         $family = new Family(null, 'Family A');
         $this->setReference('family-a', $family);
         $manager->persist($family);
+        $manager->flush();
 
-        $product = new Product();
-        $product->setDescription('Product A');
-        $product->setFamily($family);
+        $product = new Product(null, 'Product A', $family->getId());
         $this->setReference('product-a', $product);
         $manager->persist($product);
 
-        $product = new Product();
-        $product->setDescription('Product B');
-        $product->setFamily($family);
+        $product = new Product(null, 'Product B', $family->getId());
         $this->setReference('product-b', $product);
         $manager->persist($product);
 

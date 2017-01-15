@@ -42,6 +42,35 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
     /**
      * @ApiDoc(
      *   resource = true,
+     *   description = "Gets a Family for a given id",
+     *   statusCodes = {
+     *     200 = "Returned when successful",
+     *     404 = "Returned when the family is not found"
+     *   }
+     * )
+     *
+     * @param int     $familyId      The family id
+     *
+     * @return JsonResponse
+     *
+     * @throws NotFoundHttpException when page not exist
+     */
+    public function getAction($familyId)
+    {
+        $family = $this->getDoctrine()
+            ->getRepository(Family::class)
+            ->find($familyId);
+
+        if (!$family) {
+            throw $this->createNotFoundException('No family found for id '.$familyId);
+        }
+
+        return $this->json($family);
+    }
+
+    /**
+     * @ApiDoc(
+     *   resource = true,
      *   description = "Add a new Family",
      *   statusCodes = {
      *     200 = "Returned when successful"
@@ -133,34 +162,5 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
         } catch (FamilyNotFoundException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);
         }
-    }
-
-    /**
-     * @ApiDoc(
-     *   resource = true,
-     *   description = "Gets a Family for a given id",
-     *   statusCodes = {
-     *     200 = "Returned when successful",
-     *     404 = "Returned when the family is not found"
-     *   }
-     * )
-     *
-     * @param int     $familyId      The family id
-     *
-     * @return JsonResponse
-     *
-     * @throws NotFoundHttpException when page not exist
-     */
-    public function getAction($familyId)
-    {
-        $family = $this->getDoctrine()
-            ->getRepository(Family::class)
-            ->find($familyId);
-
-        if (!$family) {
-            throw $this->createNotFoundException('No family found for id '.$familyId);
-        }
-
-        return $this->json($family);
     }
 }

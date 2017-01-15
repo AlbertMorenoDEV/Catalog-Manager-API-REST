@@ -9,8 +9,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Family
 {
-    const MIN_LENGTH = 5;
-    const MAX_LENGTH = 10;
+    const MIN_LENGTH = 2;
+    const MAX_LENGTH = 255;
     const FORMAT = '/^[a-zA-Z0-9_ ]+$/';
 
     /**
@@ -35,7 +35,7 @@ class Family
         $this->products = new ArrayCollection();
     }
 
-    public function setName($name)
+    public function setName($name): self
     {
         $this->assertNotEmpty($name);
         $this->assertNotTooShort($name);
@@ -43,6 +43,7 @@ class Family
         $this->assertValidFormat($name);
 
         $this->name = $name;
+        return $this;
     }
 
     private function assertNotEmpty($name)

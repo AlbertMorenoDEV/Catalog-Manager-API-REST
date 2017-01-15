@@ -1,8 +1,14 @@
 <?php
 namespace AppBundle\Controller;
 
+use AMD\Catalog\Application\AddProductRequest;
+use AMD\Catalog\Application\AddProductService;
+use AMD\Catalog\Application\UpdateProductRequest;
+use AMD\Catalog\Application\UpdateProductService;
 use AMD\Catalog\Domain\Model\Family;
+use AMD\Catalog\Domain\Model\InvalidProductDataException;
 use AMD\Catalog\Domain\Model\Product;
+use AMD\Catalog\Domain\Model\ProductNotFoundException;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -28,21 +34,40 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function cgetAction()
     {
-        $repository = $this->getDoctrine()->getRepository('AMD:Product');
+        $repository = $this->getDoctrine()->getRepository(Product::class);
 
         $products = $repository->findAll();
 
-//        $encoder = new JsonEncoder();
-//        $normalizer = new ObjectNormalizer();
-//
-//        $normalizer->setCircularReferenceHandler(function ($object) {
-//            return $object->getName();
-//        });
-//
-//        $serializer = new Serializer([$normalizer], [$encoder]);
-//        return $this->json($serializer->serialize($products, 'json'));
-
         return $this->json($products);
+    }
+
+    /**
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Gets a Product for a given id",
+     *   statusCodes = {
+     *     200 = "Returned when successful",
+     *     404 = "Returned when the product is not found"
+     *   }
+     * )
+     *
+     * @param int     $productId      The product id
+     *
+     * @return JsonResponse
+     *
+     * @throws NotFoundHttpException when page not exist
+     */
+    public function getAction($productId)
+    {
+        $product = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->find($productId);
+
+        if (!$product) {
+            throw $this->createNotFoundException('No product found for id '.$productId);
+        }
+
+        return $this->json($product);
     }
 
     /**
@@ -63,29 +88,17 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function postAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        /** @var Family $family */
-        $family = $em->getRepository('AMD:Family')->find($request->get('family_id'));
+        $entity_manager = $this->getDoctrine()->getManager();
+        $repository = $entity_manager->getRepository(Product::class);
 
-        if (!$family) {
-            throw $this->createNotFoundException('No family found for id '.$request->get('family_id'));
+        $addProductService = new AddProductService($repository);
+
+        try {
+            $response = $addProductService->execute(new AddProductRequest($request->get('description'), $request->get('family_id')));
+            return $this->json($response, Response::HTTP_CREATED);
+        } catch (InvalidProductDataException $e) {
+            return $this->json(['errors' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         }
-
-        $product = new Product();
-        $product->setDescription($request->get('description'));
-        $product->setFamily($family);
-
-        $validator = $this->get('validator');
-        $errors = $validator->validate($product);
-        if (count($errors) > 0) {
-            return $this->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
-        }
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($product);
-        $em->flush();
-
-        return $this->json($product, Response::HTTP_CREATED);
     }
 
     /**
@@ -108,33 +121,20 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function putAction(Request $request, $productId)
     {
-        $em = $this->getDoctrine()->getManager();
+        $entity_manager = $this->getDoctrine()->getManager();
+        $repository = $entity_manager->getRepository(Product::class);
 
-        /** @var Product $product */
-        $product = $em->getRepository('AMD:Product')->find($productId);
-        if (!$product) {
-            throw $this->createNotFoundException('No product found for id '.$productId);
+        $updateFamilyService = new UpdateProductService($repository);
+
+        try {
+            $response = $updateFamilyService->execute(new UpdateProductRequest($productId, $request->get('description'), $request->get('family_id')));
+            return $this->json($response, Response::HTTP_OK);
+        } catch (ProductNotFoundException $e) {
+            // ToDo: Maybe a app controller shouldn't know about domain exception directly?
+            return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);
+        } catch (InvalidProductDataException $e) {
+            return $this->json(['errors' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         }
-
-        /** @var Family $family */
-        $family = $em->getRepository('AMD:Family')->find($request->get('family_id'));
-
-        if (!$family) {
-            throw $this->createNotFoundException('No family found for id '.$request->get('family_id'));
-        }
-
-        $product->setDescription($request->get('description'));
-        $product->setFamily($family);
-
-        $validator = $this->get('validator');
-        $errors = $validator->validate($product);
-        if (count($errors) > 0) {
-            return $this->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
-        }
-
-        $em->flush();
-
-        return $this->json($product, Response::HTTP_OK);
     }
 
     /**
@@ -167,34 +167,5 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $em->flush();
 
         return $this->json($product, Response::HTTP_OK);
-    }
-
-    /**
-     * @ApiDoc(
-     *   resource = true,
-     *   description = "Gets a Product for a given id",
-     *   statusCodes = {
-     *     200 = "Returned when successful",
-     *     404 = "Returned when the product is not found"
-     *   }
-     * )
-     *
-     * @param int     $productId      The product id
-     *
-     * @return JsonResponse
-     *
-     * @throws NotFoundHttpException when page not exist
-     */
-    public function getAction($productId)
-    {
-        $product = $this->getDoctrine()
-            ->getRepository('AMD:Product')
-            ->find($productId);
-
-        if (!$product) {
-            throw $this->createNotFoundException('No product found for id '.$productId);
-        }
-
-        return $this->json($product);
     }
 }
