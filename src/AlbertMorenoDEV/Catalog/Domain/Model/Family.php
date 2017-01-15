@@ -11,7 +11,7 @@ class Family
 {
     const MIN_LENGTH = 5;
     const MAX_LENGTH = 10;
-    const FORMAT = '/^[a-zA-Z0-9_]+$/';
+    const FORMAT = '/^[a-zA-Z0-9_ ]+$/';
 
     /**
      * @var int
@@ -28,15 +28,16 @@ class Family
      */
     private $products;
 
-    public function __construct($name)
+    public function __construct($id, $name)
     {
+        $this->id = $id;
         $this->setName($name);
         $this->products = new ArrayCollection();
     }
 
     public static function createFromAddFamilyRequest(AddFamilyRequest $request): self
     {
-        return new self($request->getName());
+        return new self(null, $request->getName());
     }
 
     private function setName($name)

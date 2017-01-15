@@ -27,7 +27,10 @@ class FamilyControllerTest extends WebTestCase
         $this->fixtures = $this->loadFixtures([LoadData::class])->getReferenceRepository();
     }
 
-    public function testJsonGetFamiliesAction()
+    /**
+     * @test
+     */
+    public function getFamiliesAction()
     {
         /** @var \AMD\Catalog\Domain\Model\Family $family */
         $family = $this->fixtures->getReference('family-a');
@@ -45,7 +48,10 @@ class FamilyControllerTest extends WebTestCase
         $this->assertEquals($family->getName(), $decoded[0]['name']);
     }
 
-    public function testJsonGetFamilyAction()
+    /**
+     * @test
+     */
+    public function getFamilyAction()
     {
         /** @var \AMD\Catalog\Domain\Model\Family $family */
         $family = $this->fixtures->getReference('family-a');
@@ -62,7 +68,10 @@ class FamilyControllerTest extends WebTestCase
         $this->assertEquals($family->getName(), $decoded['name']);
     }
 
-    public function testJsonGetFamilyActionNotFound()
+    /**
+     * @test
+     */
+    public function getFamilyActionNotFound()
     {
         $route = $this->getUrl('api_get_family', ['familyId' => 9999, '_format' => 'json']);
 
@@ -71,7 +80,11 @@ class FamilyControllerTest extends WebTestCase
         $this->assertJsonResponse($response, Response::HTTP_NOT_FOUND);
     }
 
-    public function testJsonPostFamilyAction()
+    /**
+     * @test
+     * @group family
+     */
+    public function postFamilyAction()
     {
         $route = $this->getUrl('api_post_family', ['_format' => 'json']);
 
@@ -87,7 +100,11 @@ class FamilyControllerTest extends WebTestCase
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_CREATED, false);
     }
 
-    public function testJsonPostFamilyActionEmptyNameValidation()
+    /**
+     * @test
+     * @group family
+     */
+    public function postFamilyActionEmptyNameValidation()
     {
         $route = $this->getUrl('api_post_family', ['_format' => 'json']);
 
@@ -103,7 +120,10 @@ class FamilyControllerTest extends WebTestCase
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_BAD_REQUEST, false);
     }
 
-    public function testJsonPutFamilyActionShouldModify()
+    /**
+     * @test
+     */
+    public function putFamilyActionShouldModify()
     {
         /** @var \AMD\Catalog\Domain\Model\Family $family */
         $family = $this->fixtures->getReference('family-a');
@@ -121,7 +141,10 @@ class FamilyControllerTest extends WebTestCase
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_OK, false);
     }
 
-    public function testJsonPutFamilyActionBadParameters()
+    /**
+     * @test
+     */
+    public function putFamilyActionBadParameters()
     {
         /** @var \AMD\Catalog\Domain\Model\Family $family */
         $family = $this->fixtures->getReference('family-a');
@@ -139,7 +162,10 @@ class FamilyControllerTest extends WebTestCase
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_BAD_REQUEST, false);
     }
 
-    public function testJsonPutFamilyActionNotExists()
+    /**
+     * @test
+     */
+    public function putFamilyActionNotExists()
     {
         $route = $this->getUrl('api_put_family', ['familyId' => 9999, '_format' => 'json']);
         $this->client->request(
@@ -154,7 +180,10 @@ class FamilyControllerTest extends WebTestCase
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_NOT_FOUND, false);
     }
 
-    public function testJsonDeleteFamilyAction()
+    /**
+     * @test
+     */
+    public function deleteFamilyAction()
     {
         /** @var \AMD\Catalog\Domain\Model\Family $family */
         $family = $this->fixtures->getReference('family-a');
@@ -166,7 +195,10 @@ class FamilyControllerTest extends WebTestCase
         $this->assertJsonResponse($response, Response::HTTP_OK);
     }
 
-    public function testJsonDeleteFamilyActionNotFound()
+    /**
+     * @test
+     */
+    public function deleteFamilyActionNotFound()
     {
         $route = $this->getUrl('api_get_family', ['familyId' => 9999, '_format' => 'json']);
 

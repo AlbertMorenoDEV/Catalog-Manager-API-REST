@@ -16,8 +16,7 @@ class LoadData extends AbstractFixture implements FixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $family = new Family();
-        $family->setName('Family A');
+        $family = new Family(null, 'Family A');
         $this->setReference('family-a', $family);
         $manager->persist($family);
 

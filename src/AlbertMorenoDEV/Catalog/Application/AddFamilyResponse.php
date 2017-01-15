@@ -15,7 +15,7 @@ class AddFamilyResponse
 
     public static function createFromFamily(Family $family): self
     {
-        new self($family->getName());
+        return new self($family->getName());
     }
 
     /**

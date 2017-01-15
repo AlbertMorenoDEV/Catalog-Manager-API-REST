@@ -1,6 +1,6 @@
 AMD\Catalog\Domain\Model\Product:
     type: entity
-    table: null
+    table: product
     repositoryClass: AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineProductRepository
     id:
         id:

@@ -5,6 +5,7 @@ use AMD\Catalog\Application\AddFamilyRequest;
 use AMD\Catalog\Application\AddFamilyService;
 use AMD\Catalog\Domain\Model\Family;
 use AMD\Catalog\Domain\Model\InvalidFamilyDataException;
+use AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineFamilyRepository;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -42,13 +43,18 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
      *   }
      * )
      *
-     * @param Request   $request
+     * @param Request $request
      *
      * @return JsonResponse
+     * @throws \LogicException
      */
     public function postAction(Request $request)
     {
-        $createFamilyService = $this->get('catalog.add.family.service');
+        // $createFamilyService = $this->get('catalog.add_family_service');
+        $entity_manager = $this->getDoctrine()->getManager();
+        $repository = $entity_manager->getRepository(Family::class);
+
+        $createFamilyService = new AddFamilyService($repository);
 
         try {
             $response = $createFamilyService->execute(new AddFamilyRequest($request->get('name')));
