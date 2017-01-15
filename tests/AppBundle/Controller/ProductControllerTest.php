@@ -241,6 +241,7 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @test
+     * @group product
      */
     public function deleteProductAction()
     {
@@ -256,6 +257,7 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @test
+     * @group product
      */
     public function deleteProductActionNotFound()
     {

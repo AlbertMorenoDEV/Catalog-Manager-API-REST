@@ -3,6 +3,8 @@ namespace AppBundle\Controller;
 
 use AMD\Catalog\Application\AddProductRequest;
 use AMD\Catalog\Application\AddProductService;
+use AMD\Catalog\Application\RemoveProductRequest;
+use AMD\Catalog\Application\RemoveProductService;
 use AMD\Catalog\Application\UpdateProductRequest;
 use AMD\Catalog\Application\UpdateProductService;
 use AMD\Catalog\Domain\Model\Family;
@@ -156,16 +158,16 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function deleteAction($productId)
     {
-        $em = $this->getDoctrine()->getManager();
-        $product = $em->getRepository('AMD:Product')->find($productId);
+        $entity_manager = $this->getDoctrine()->getManager();
+        $repository = $entity_manager->getRepository(Product::class);
 
-        if (!$product) {
-            throw $this->createNotFoundException('No product found for id '.$productId);
+        $removeProductService = new RemoveProductService($repository);
+
+        try {
+            $response = $removeProductService->execute(new RemoveProductRequest($productId));
+            return $this->json($response, Response::HTTP_OK);
+        } catch (ProductNotFoundException $e) {
+            return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);
         }
-
-        $em->remove($product);
-        $em->flush();
-
-        return $this->json($product, Response::HTTP_OK);
     }
 }
