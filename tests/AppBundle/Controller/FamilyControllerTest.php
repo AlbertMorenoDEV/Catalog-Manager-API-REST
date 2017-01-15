@@ -125,6 +125,7 @@ class FamilyControllerTest extends WebTestCase
 
     /**
      * @test
+     * @group family
      */
     public function putFamilyActionShouldModify()
     {
@@ -146,6 +147,7 @@ class FamilyControllerTest extends WebTestCase
 
     /**
      * @test
+     * @group family
      */
     public function putFamilyActionBadParameters()
     {
@@ -167,6 +169,7 @@ class FamilyControllerTest extends WebTestCase
 
     /**
      * @test
+     * @group family
      */
     public function putFamilyActionNotExists()
     {
