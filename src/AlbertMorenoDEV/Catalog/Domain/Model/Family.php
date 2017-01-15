@@ -35,11 +35,6 @@ class Family
         $this->products = new ArrayCollection();
     }
 
-    public static function createFromAddFamilyRequest(AddFamilyRequest $request): self
-    {
-        return new self(null, $request->getName());
-    }
-
     private function setName($name)
     {
         $this->assertNotEmpty($name);

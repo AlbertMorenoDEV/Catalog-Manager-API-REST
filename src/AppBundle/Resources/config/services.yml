@@ -1,9 +1,9 @@
 services:
-    catalog.family_repository:
-        class: AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineFamilyRepository
-        factory: ['@doctrine.orm.default_entity_manager', getRepository]
-        arguments:
-            entityManager: "@doctrine.orm.entity_manager"
-    catalog.add_family_service:
-        class: AMD\Catalog\Application\AddFamilyService
-        arguments: ["@catalog.family_repository"]
+#    catalog.family_repository:
+#        class: AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineFamilyRepository
+#        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+#        arguments:
+#            entityManager: "@doctrine.orm.entity_manager"
+#    catalog.add_family_service:
+#        class: AMD\Catalog\Application\AddFamilyService
+#        arguments: ["@catalog.family_repository"]

@@ -10,6 +10,6 @@ class DoctrineFamilyRepository extends EntityRepository implements FamilyReposit
     public function add(Family $family)
     {
         $this->_em->persist($family);
-        $this->_em->flush(); // ToDo: Must be removed to Application layer, but where exactly?
+        $this->_em->flush(); // ToDo: Must be moved to Application layer, but where exactly?
     }
 }
