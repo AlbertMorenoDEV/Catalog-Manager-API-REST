@@ -168,7 +168,7 @@ class ProductControllerTest extends WebTestCase
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            json_encode(['description' => 'Product AA', 'family_id' => $product->getFamily()->getId()])
+            json_encode(['description' => 'Product AA', 'family_id' => $product->getFamilyId()])
         );
 
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_OK, false);
