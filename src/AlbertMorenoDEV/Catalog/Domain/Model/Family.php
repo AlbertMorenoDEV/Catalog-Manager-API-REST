@@ -14,7 +14,7 @@ class Family
     const FORMAT = '/^[a-zA-Z0-9_ ]+$/';
 
     /**
-     * @var int
+     * @var int|null
      */
     private $id;
 
@@ -73,7 +73,7 @@ class Family
         }
     }
 
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
