@@ -5,4 +5,5 @@ interface FamilyRepository
 {
     public function add(Family $family);
     public function findAll();
+    public function findById($familyId);
 }

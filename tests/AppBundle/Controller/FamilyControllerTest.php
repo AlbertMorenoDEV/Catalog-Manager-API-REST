@@ -29,6 +29,7 @@ class FamilyControllerTest extends WebTestCase
 
     /**
      * @test
+     * @group family
      */
     public function getFamiliesAction()
     {
@@ -50,6 +51,7 @@ class FamilyControllerTest extends WebTestCase
 
     /**
      * @test
+     * @group family
      */
     public function getFamilyAction()
     {
@@ -70,6 +72,7 @@ class FamilyControllerTest extends WebTestCase
 
     /**
      * @test
+     * @group family
      */
     public function getFamilyActionNotFound()
     {

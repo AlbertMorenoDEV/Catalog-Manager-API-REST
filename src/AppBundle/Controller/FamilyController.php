@@ -27,7 +27,7 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
      */
     public function cgetAction()
     {
-        $repository = $this->getDoctrine()->getRepository('AMD:Family');
+        $repository = $this->getDoctrine()->getRepository(Family::class);
 
         $families = $repository->findAll();
 
@@ -154,7 +154,7 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
     public function getAction($familyId)
     {
         $family = $this->getDoctrine()
-            ->getRepository('AMD:Family')
+            ->getRepository(Family::class)
             ->find($familyId);
 
         if (!$family) {
