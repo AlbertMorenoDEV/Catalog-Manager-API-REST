@@ -1,5 +1,7 @@
 <?php
 namespace AMD\Catalog\Domain\Model;
+use AMD\Catalog\Domain\Model\Family\FamilyId;
+use AMD\Catalog\Domain\Model\Product\ProductId;
 
 /**
  * Product
@@ -11,7 +13,7 @@ class Product
     const FORMAT = '/^[a-zA-Z0-9_ ]+$/';
 
     /**
-     * @var int
+     * @var ProductId
      */
     private $id;
 
@@ -21,18 +23,18 @@ class Product
     private $description;
 
     /**
-     * @var int
+     * @var FamilyId
      */
     private $familyId;
 
-    public function __construct($id, $description, $familyId)
+    public function __construct(ProductId $id, $description, FamilyId $familyId)
     {
         $this->id = $id;
         $this->setDescription($description);
         $this->setFamilyId($familyId);
     }
 
-    public function getId()
+    public function getProductId(): ProductId
     {
         return $this->id;
     }
@@ -82,12 +84,12 @@ class Product
         return $this->description;
     }
 
-    public function getFamilyId(): int
+    public function getFamilyId(): FamilyId
     {
         return $this->familyId;
     }
 
-    public function setFamilyId(int $familyId)
+    public function setFamilyId(FamilyId $familyId)
     {
         $this->familyId = $familyId;
 

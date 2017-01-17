@@ -27,6 +27,6 @@ class UpdateFamilyService
         $family->setName($request->getName());
         $this->repository->update($family);
 
-        return new UpdateFamilyResponse($family->getId(), $family->getName());
+        return new UpdateFamilyResponse($family->getFamilyId(), $family->getName());
     }
 }

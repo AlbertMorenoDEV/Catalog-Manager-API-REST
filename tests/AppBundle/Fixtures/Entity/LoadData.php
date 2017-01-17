@@ -2,7 +2,8 @@
 namespace Tests\AppBundle\Fixtures\Entity;
 
 use AMD\Catalog\Domain\Model\Family;
-use AMD\Catalog\Domain\Model\Product;
+use AMD\Catalog\Domain\Model\Family\FamilyId;
+use AMD\Catalog\Domain\Model\Product\ProductId;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -16,16 +17,15 @@ class LoadData extends AbstractFixture implements FixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $family = new Family(null, 'Family A');
+        $family = new Family(FamilyId::create(), 'Family A');
         $this->setReference('family-a', $family);
         $manager->persist($family);
-        $manager->flush();
 
-        $product = new Product(null, 'Product A', $family->getId());
+        $product = $family->makeProduct(ProductId::create(), 'Product A');
         $this->setReference('product-a', $product);
         $manager->persist($product);
 
-        $product = new Product(null, 'Product B', $family->getId());
+        $product = $family->makeProduct(ProductId::create(), 'Product B');
         $this->setReference('product-b', $product);
         $manager->persist($product);
 

@@ -24,7 +24,7 @@ class RemoveProductService
             throw new ProductNotFoundException('No product found for id '.$request->getId());
         }
 
-        $response = new RemoveProductResponse($product->getId(), $product->getDescription(), $product->getFamilyId());
+        $response = new RemoveProductResponse($product->getProductId(), $product->getDescription(), $product->getFamilyId());
 
         $this->repository->remove($product);
 

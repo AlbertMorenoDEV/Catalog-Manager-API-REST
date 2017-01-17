@@ -54,6 +54,13 @@ doctrine:
         default_table_options:
             charset: utf8mb4
             collate: utf8mb4_unicode_ci
+        types:
+            FamilyId:
+                class:      AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineFamilyId
+                commented:  true
+            ProductId:
+                class:      AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineProductId
+                commented:  true
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"

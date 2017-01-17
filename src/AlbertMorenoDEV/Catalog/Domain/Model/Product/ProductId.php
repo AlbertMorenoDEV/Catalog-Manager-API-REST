@@ -21,4 +21,9 @@ class ProductId
     {
         return $this->id;
     }
+
+    public function getId()
+    {
+        return $this->id;
+    }
 }

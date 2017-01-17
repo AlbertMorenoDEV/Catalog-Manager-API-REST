@@ -1,8 +1,8 @@
 <?php
 namespace AMD\Catalog\Domain\Model;
 
-use AMD\Catalog\Application\AddFamilyRequest;
-use Doctrine\Common\Collections\ArrayCollection;
+use AMD\Catalog\Domain\Model\Family\FamilyId;
+use AMD\Catalog\Domain\Model\Product\ProductId;
 
 /**
  * Family
@@ -14,7 +14,7 @@ class Family
     const FORMAT = '/^[a-zA-Z0-9_ ]+$/';
 
     /**
-     * @var int|null
+     * @var FamilyId
      */
     private $id;
 
@@ -23,7 +23,7 @@ class Family
      */
     private $name;
 
-    public function __construct($id, $name)
+    public function __construct(FamilyId $id, $name)
     {
         $this->id = $id;
         $this->setName($name);
@@ -40,9 +40,9 @@ class Family
         return $this;
     }
 
-    public function makeProduct($productId, string $description): Product
+    public function makeProduct(ProductId $productId, string $description): Product
     {
-        return new Product($productId, $description, $this->getId());
+        return new Product($productId, $description, $this->getFamilyId());
     }
 
     private function assertNotEmpty($name)
@@ -73,7 +73,7 @@ class Family
         }
     }
 
-    public function getId()
+    public function getFamilyId(): FamilyId
     {
         return $this->id;
     }

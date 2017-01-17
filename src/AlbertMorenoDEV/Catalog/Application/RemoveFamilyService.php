@@ -24,7 +24,7 @@ class RemoveFamilyService
             throw new FamilyNotFoundException('No family found for id '.$request->getId());
         }
 
-        $response = new RemoveFamilyResponse($family->getId(), $family->getName());
+        $response = new RemoveFamilyResponse($family->getFamilyId(), $family->getName());
 
         $this->repository->remove($family);
 

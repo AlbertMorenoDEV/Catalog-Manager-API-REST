@@ -11,6 +11,6 @@ class AddProductService extends ProductService
 
         $this->productRepository->add($product);
 
-        return new AddProductResponse($product->getId(), $product->getDescription(), $product->getFamilyId());
+        return new AddProductResponse($product->getProductId(), $product->getDescription(), $product->getFamilyId());
     }
 }

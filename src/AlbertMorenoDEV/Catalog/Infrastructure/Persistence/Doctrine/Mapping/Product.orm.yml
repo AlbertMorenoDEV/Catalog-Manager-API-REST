@@ -4,22 +4,13 @@ AMD\Catalog\Domain\Model\Product:
     repositoryClass: AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineProductRepository
     id:
         id:
-            type: integer
+            type: ProductId
             id: true
-            generator:
-                strategy: AUTO
     fields:
         description:
             type: string
             length: 255
         familyId:
-            type: integer
+            type: FamilyId
             column: family_id
-#    manyToOne:
-#        family:
-#            targetEntity: Family
-#            inversedBy: products
-#            joinColumn:
-#                name: family_id
-#                referencedColumnName: id
     lifecycleCallbacks: {  }

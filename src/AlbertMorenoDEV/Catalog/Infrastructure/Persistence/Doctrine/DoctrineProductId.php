@@ -14,8 +14,9 @@ class DoctrineProductId extends GuidType
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        return $value->id();
+        return $value->getId();
     }
+
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
         return ProductId::create($value);

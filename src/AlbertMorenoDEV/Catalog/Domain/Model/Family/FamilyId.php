@@ -21,4 +21,9 @@ class FamilyId
     {
         return $this->id;
     }
+
+    public function getId()
+    {
+        return $this->id;
+    }
 }

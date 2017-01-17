@@ -14,8 +14,9 @@ class DoctrineFamilyId extends GuidType
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        return $value->id();
+        return $value->getId();
     }
+
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
         return FamilyId::create($value);

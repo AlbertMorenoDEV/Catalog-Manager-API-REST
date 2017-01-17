@@ -9,9 +9,9 @@ class UpdateProductService extends ProductService
         $product = $this->findProductOrFail($request->getId());
 
         $product->setDescription($request->getDescription());
-        $product->setFamilyId($family->getId());
+        $product->setFamilyId($family->getFamilyId());
         $this->productRepository->update($product);
 
-        return new UpdateProductResponse($product->getId(), $product->getDescription(), $family->getId());
+        return new UpdateProductResponse($product->getProductId(), $product->getDescription(), $family->getFamilyId());
     }
 }

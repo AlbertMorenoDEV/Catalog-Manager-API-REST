@@ -4,16 +4,10 @@ AMD\Catalog\Domain\Model\Family:
     repositoryClass: AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineFamilyRepository
     id:
         id:
-            type: integer
+            type: FamilyId
             id: true
-            generator:
-                strategy: AUTO
     fields:
         name:
             type: string
             length: 255
-#    oneToMany:
-#        products:
-#            targetEntity: Product
-#            mappedBy: family
     lifecycleCallbacks: {  }
