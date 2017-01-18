@@ -3,22 +3,22 @@ namespace AMD\Catalog\Application;
 
 class AddFamilyResponse
 {
-    /** @var int */
+    /** @var string */
     private $id;
 
     /** @var string */
     private $name;
 
-    public function __construct(int $id, string $name)
+    public function __construct(string $id, string $name)
     {
         $this->id = $id;
         $this->name = $name;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getId(): int
+    public function getId(): string
     {
         return $this->id;
     }

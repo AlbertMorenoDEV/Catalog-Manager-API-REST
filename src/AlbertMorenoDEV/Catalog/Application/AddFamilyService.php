@@ -2,6 +2,7 @@
 namespace AMD\Catalog\Application;
 
 use AMD\Catalog\Domain\Model\Family;
+use AMD\Catalog\Domain\Model\Family\FamilyId;
 use AMD\Catalog\Domain\Model\FamilyRepository;
 
 class AddFamilyService
@@ -16,7 +17,7 @@ class AddFamilyService
 
     public function execute(AddFamilyRequest $request): AddFamilyResponse
     {
-        $family = new Family(null, $request->getName());
+        $family = new Family(FamilyId::create(), $request->getName());
 
         $this->repository->add($family);
 
