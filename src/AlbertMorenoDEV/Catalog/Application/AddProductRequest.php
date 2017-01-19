@@ -4,15 +4,27 @@ namespace AMD\Catalog\Application;
 class AddProductRequest
 {
     /** @var string */
+    private $id;
+
+    /** @var string */
     private $description;
 
-    /** @var int */
+    /** @var string */
     private $familyId;
 
-    public function __construct(string $description, int $familyId)
+    public function __construct(string $id, string $description, string $familyId)
     {
+        $this->id = $id;
         $this->description = $description;
         $this->familyId = $familyId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
     }
 
     /**
@@ -24,9 +36,9 @@ class AddProductRequest
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getFamilyId(): int
+    public function getFamilyId(): string
     {
         return $this->familyId;
     }

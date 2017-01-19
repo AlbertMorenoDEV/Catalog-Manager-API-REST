@@ -47,7 +47,7 @@ class FamilyControllerTest extends WebTestCase
         $decoded = json_decode($content, true);
         $this->assertCount(1, $decoded);
         $this->assertTrue(isset($decoded[0]['id']));
-        $this->assertEquals($family->getFamilyId()->getId(), $decoded[0]['id']);
+        $this->assertEquals($family->getFamilyId()->getValue(), $decoded[0]['id']);
         $this->assertEquals($family->getName(), $decoded[0]['name']);
     }
 
@@ -60,7 +60,7 @@ class FamilyControllerTest extends WebTestCase
         /** @var \AMD\Catalog\Domain\Model\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
-        $route = $this->getUrl('api_get_family', ['familyId' => (string)$family->getFamilyId()->getId(), '_format' => 'json']);
+        $route = $this->getUrl('api_get_family', ['familyId' => (string)$family->getFamilyId()->getValue(), '_format' => 'json']);
 
         $this->client->request('GET', $route, ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
@@ -69,7 +69,7 @@ class FamilyControllerTest extends WebTestCase
 
         $decoded = json_decode($content, true);
         $this->assertTrue(isset($decoded['id']));
-        $this->assertEquals((string)$family->getFamilyId()->getId(), $decoded['id']);
+        $this->assertEquals((string)$family->getFamilyId()->getValue(), $decoded['id']);
         $this->assertEquals($family->getName(), $decoded['name']);
     }
 
@@ -79,7 +79,7 @@ class FamilyControllerTest extends WebTestCase
      */
     public function getFamilyActionNotFound()
     {
-        $route = $this->getUrl('api_get_family', ['familyId' => FamilyId::create()->getId(), '_format' => 'json']);
+        $route = $this->getUrl('api_get_family', ['familyId' => FamilyId::create()->getValue(), '_format' => 'json']);
 
         $this->client->request('GET', $route, ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
@@ -100,7 +100,7 @@ class FamilyControllerTest extends WebTestCase
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            json_encode(['id' => FamilyId::create()->getId(), 'name' => 'Family B'])
+            json_encode(['id' => FamilyId::create()->getValue(), 'name' => 'Family B'])
         );
 
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_CREATED, false);
@@ -120,7 +120,7 @@ class FamilyControllerTest extends WebTestCase
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            json_encode(['id' => FamilyId::create()->getId(), 'name' => ''])
+            json_encode(['id' => FamilyId::create()->getValue(), 'name' => ''])
         );
 
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_BAD_REQUEST, false);
@@ -135,14 +135,14 @@ class FamilyControllerTest extends WebTestCase
         /** @var \AMD\Catalog\Domain\Model\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
-        $route = $this->getUrl('api_put_family', ['familyId' => (string)$family->getFamilyId()->getId(), '_format' => 'json']);
+        $route = $this->getUrl('api_put_family', ['familyId' => (string)$family->getFamilyId()->getValue(), '_format' => 'json']);
         $this->client->request(
             'PUT',
             $route,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            json_encode(['id' => FamilyId::create()->getId(), 'name' => 'Family AA'])
+            json_encode(['id' => FamilyId::create()->getValue(), 'name' => 'Family AA'])
         );
 
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_OK, false);
@@ -157,14 +157,14 @@ class FamilyControllerTest extends WebTestCase
         /** @var \AMD\Catalog\Domain\Model\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
-        $route = $this->getUrl('api_put_family', ['familyId' => $family->getFamilyId()->getId(), '_format' => 'json']);
+        $route = $this->getUrl('api_put_family', ['familyId' => $family->getFamilyId()->getValue(), '_format' => 'json']);
         $this->client->request(
             'PUT',
             $route,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            json_encode(['id' => FamilyId::create()->getId(), 'name' => ''])
+            json_encode(['id' => FamilyId::create()->getValue(), 'name' => ''])
         );
 
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_BAD_REQUEST, false);
@@ -176,14 +176,14 @@ class FamilyControllerTest extends WebTestCase
      */
     public function putFamilyActionNotExists()
     {
-        $route = $this->getUrl('api_put_family', ['familyId' => FamilyId::create()->getId(), '_format' => 'json']);
+        $route = $this->getUrl('api_put_family', ['familyId' => FamilyId::create()->getValue(), '_format' => 'json']);
         $this->client->request(
             'PUT',
             $route,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            json_encode(['id' => FamilyId::create()->getId(), 'name' => 'Family AA'])
+            json_encode(['id' => FamilyId::create()->getValue(), 'name' => 'Family AA'])
         );
 
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_NOT_FOUND, false);
@@ -198,7 +198,7 @@ class FamilyControllerTest extends WebTestCase
         /** @var \AMD\Catalog\Domain\Model\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
-        $route = $this->getUrl('api_get_family', ['familyId' => $family->getFamilyId()->getId(), '_format' => 'json']);
+        $route = $this->getUrl('api_get_family', ['familyId' => $family->getFamilyId()->getValue(), '_format' => 'json']);
 
         $this->client->request('DELETE', $route, ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
@@ -211,7 +211,7 @@ class FamilyControllerTest extends WebTestCase
      */
     public function deleteFamilyActionNotFound()
     {
-        $route = $this->getUrl('api_get_family', ['familyId' => FamilyId::create()->getId(), '_format' => 'json']);
+        $route = $this->getUrl('api_get_family', ['familyId' => FamilyId::create()->getValue(), '_format' => 'json']);
 
         $this->client->request('DELETE', $route, ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();

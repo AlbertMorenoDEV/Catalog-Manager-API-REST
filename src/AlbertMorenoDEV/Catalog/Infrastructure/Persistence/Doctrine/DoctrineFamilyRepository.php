@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityRepository;
 
 class DoctrineFamilyRepository extends EntityRepository implements FamilyRepository
 {
-    public function nextIdentity()
+    public function nextIdentity(): FamilyId
     {
         return FamilyId::create();
     }
@@ -30,7 +30,7 @@ class DoctrineFamilyRepository extends EntityRepository implements FamilyReposit
         $this->_em->flush(); // ToDo: Must be moved to Application layer, but where exactly?
     }
 
-    public function findById($familyId)
+    public function findById(FamilyId $familyId)
     {
         return $this->find($familyId);
     }

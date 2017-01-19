@@ -3,42 +3,33 @@ namespace AMD\Catalog\Application;
 
 class RemoveProductResponse
 {
-    /** @var int */
+    /** @var string */
     private $id;
 
     /** @var string */
     private $description;
 
-    /** @var int */
+    /** @var string */
     private $familyId;
 
-    public function __construct(int $id, string $description, int $familyId)
+    public function __construct(string $id, string $description, string $familyId)
     {
         $this->id = $id;
         $this->description = $description;
         $this->familyId = $familyId;
     }
 
-    /**
-     * @return int
-     */
-    public function getId(): int
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @return int
-     */
-    public function getFamilyId(): int
+    public function getFamilyId(): string
     {
         return $this->familyId;
     }

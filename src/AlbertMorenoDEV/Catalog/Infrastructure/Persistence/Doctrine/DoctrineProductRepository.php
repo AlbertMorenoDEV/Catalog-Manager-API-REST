@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityRepository;
 
 class DoctrineProductRepository extends EntityRepository implements ProductRepository
 {
-    public function nextIdentity()
+    public function nextIdentity(): ProductId
     {
         return ProductId::create();
     }
@@ -30,7 +30,7 @@ class DoctrineProductRepository extends EntityRepository implements ProductRepos
         $this->_em->flush(); // ToDo: Must be moved to Application layer, but where exactly?
     }
 
-    public function findById($productId)
+    public function findById(ProductId $productId)
     {
         return $this->find($productId);
     }

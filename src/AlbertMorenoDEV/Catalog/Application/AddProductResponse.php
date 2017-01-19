@@ -3,7 +3,7 @@ namespace AMD\Catalog\Application;
 
 class AddProductResponse
 {
-    /** @var int */
+    /** @var string */
     private $id;
 
     /** @var string */
@@ -12,7 +12,7 @@ class AddProductResponse
     /** @var int */
     private $familyId;
 
-    public function __construct(int $id, string $description, int $familyId)
+    public function __construct(string $id, string $description, int $familyId)
     {
         $this->id = $id;
         $this->description = $description;
@@ -20,9 +20,9 @@ class AddProductResponse
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getId(): int
+    public function getId(): string
     {
         return $this->id;
     }
@@ -36,9 +36,9 @@ class AddProductResponse
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getFamilyId(): int
+    public function getFamilyId(): string
     {
         return $this->familyId;
     }

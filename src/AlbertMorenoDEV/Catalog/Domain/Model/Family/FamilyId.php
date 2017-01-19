@@ -22,7 +22,7 @@ class FamilyId
         return $this->id;
     }
 
-    public function getId()
+    public function getValue()
     {
         return $this->id;
     }

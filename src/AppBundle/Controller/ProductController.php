@@ -98,7 +98,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $addProductService = new AddProductService($familyRepository, $productRepository);
 
         try {
-            $response = $addProductService->execute(new AddProductRequest($request->get('description'), $request->get('family_id')));
+            $response = $addProductService->execute(new AddProductRequest($request->get('id'), $request->get('description'), $request->get('family_id')));
             return $this->json($response, Response::HTTP_CREATED);
         } catch (FamilyNotFoundException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);

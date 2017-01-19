@@ -21,6 +21,6 @@ class AddFamilyService
 
         $this->repository->add($family);
 
-        return new AddFamilyResponse($family->getFamilyId(), $family->getName());
+        return new AddFamilyResponse($family->getFamilyId()->getValue(), $family->getName());
     }
 }

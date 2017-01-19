@@ -3,13 +3,13 @@ namespace AMD\Catalog\Application;
 
 class UpdateProductRequest
 {
-    /** @var  int */
+    /** @var  string */
     private $id;
 
     /** @var  string */
     private $description;
 
-    /** @var  int */
+    /** @var  string */
     private $familyId;
 
     public function __construct($id, $description, $familyId)
@@ -20,7 +20,7 @@ class UpdateProductRequest
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -36,7 +36,7 @@ class UpdateProductRequest
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getFamilyId()
     {
