@@ -6,24 +6,18 @@ class UpdateFamilyRequest
     private $id;
     private $name;
 
-    public function __construct($id, $name)
+    public function __construct(string $id, string $name)
     {
         $this->id = $id;
         $this->name = $name;
     }
 
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
