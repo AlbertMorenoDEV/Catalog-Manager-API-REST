@@ -53,7 +53,7 @@ class FamilyControllerTest extends WebTestCase
 
     /**
      * @test
-     * @group family
+     * @group family_active
      */
     public function getFamilyAction()
     {
@@ -68,6 +68,7 @@ class FamilyControllerTest extends WebTestCase
         $content = $response->getContent();
 
         $decoded = json_decode($content, true);
+        print_r($decoded);
         $this->assertTrue(isset($decoded['id']));
         $this->assertEquals((string)$family->getFamilyId()->getValue(), $decoded['id']);
         $this->assertEquals($family->getName(), $decoded['name']);
@@ -100,7 +101,7 @@ class FamilyControllerTest extends WebTestCase
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            json_encode(['id' => FamilyId::create()->getValue(), 'name' => 'Family B'])
+            json_encode(['family_id' => FamilyId::create()->getValue(), 'name' => 'Family B'])
         );
 
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_CREATED, false);
@@ -120,7 +121,7 @@ class FamilyControllerTest extends WebTestCase
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            json_encode(['id' => FamilyId::create()->getValue(), 'name' => ''])
+            json_encode(['family_id' => FamilyId::create()->getValue(), 'name' => ''])
         );
 
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_BAD_REQUEST, false);
@@ -142,7 +143,7 @@ class FamilyControllerTest extends WebTestCase
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            json_encode(['id' => FamilyId::create()->getValue(), 'name' => 'Family AA'])
+            json_encode(['name' => 'Family AA'])
         );
 
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_OK, false);
@@ -164,7 +165,7 @@ class FamilyControllerTest extends WebTestCase
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            json_encode(['id' => FamilyId::create()->getValue(), 'name' => ''])
+            json_encode(['name' => ''])
         );
 
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_BAD_REQUEST, false);
@@ -183,7 +184,7 @@ class FamilyControllerTest extends WebTestCase
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            json_encode(['id' => FamilyId::create()->getValue(), 'name' => 'Family AA'])
+            json_encode(['name' => 'Family AA'])
         );
 
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_NOT_FOUND, false);

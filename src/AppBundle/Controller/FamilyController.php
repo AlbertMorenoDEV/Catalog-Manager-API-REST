@@ -91,7 +91,7 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
         $createFamilyService = new AddFamilyService($repository);
 
         try {
-            $response = $createFamilyService->execute(new AddFamilyRequest($request->get('name')));
+            $response = $createFamilyService->execute(new AddFamilyRequest($request->get('family_id'), $request->get('name')));
             return $this->json($response, Response::HTTP_CREATED);
         } catch (InvalidFamilyDataException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_BAD_REQUEST);

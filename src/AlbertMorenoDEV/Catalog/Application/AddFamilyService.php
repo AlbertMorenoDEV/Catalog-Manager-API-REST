@@ -17,10 +17,10 @@ class AddFamilyService
 
     public function execute(AddFamilyRequest $request): AddFamilyResponse
     {
-        $family = new Family(FamilyId::create(), $request->getName());
+        $family = new Family($request->getFamilyId(), $request->getName());
 
         $this->repository->add($family);
 
-        return new AddFamilyResponse($family->getFamilyId()->getValue(), $family->getName());
+        return new AddFamilyResponse($family->getFamilyId(), $family->getName());
     }
 }

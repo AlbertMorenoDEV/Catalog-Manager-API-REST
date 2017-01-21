@@ -1,17 +1,19 @@
 <?php
 namespace AMD\Catalog\Application;
 
+use AMD\Catalog\Domain\Model\Family\FamilyId;
+
 class RemoveFamilyRequest
 {
-    private $id;
+    private $familyId;
 
-    public function __construct(string $id)
+    public function __construct(string $familyId)
     {
-        $this->id = $id;
+        $this->familyId = FamilyId::create($familyId);
     }
 
-    public function getId(): string
+    public function getFamilyId(): FamilyId
     {
-        return $this->id;
+        return $this->familyId;
     }
 }

@@ -18,15 +18,15 @@ class UpdateFamilyService
     public function execute(UpdateFamilyRequest $request): UpdateFamilyResponse
     {
         /** @var Family $family */
-        $family = $this->repository->findById($request->getId());
+        $family = $this->repository->findById($request->getFamilyId());
 
         if (!$family) {
-            throw new FamilyNotFoundException('No family found for id '.$request->getId());
+            throw new FamilyNotFoundException('No family found for id '.$request->getFamilyId());
         }
 
         $family->setName($request->getName());
         $this->repository->update($family);
 
-        return new UpdateFamilyResponse($family->getFamilyId()->getValue(), $family->getName());
+        return new UpdateFamilyResponse($family->getFamilyId(), $family->getName());
     }
 }

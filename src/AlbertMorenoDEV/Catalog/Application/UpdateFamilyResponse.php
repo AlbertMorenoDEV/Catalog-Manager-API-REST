@@ -1,26 +1,25 @@
 <?php
 namespace AMD\Catalog\Application;
 
+use AMD\Catalog\Domain\Model\Family\FamilyId;
+
 class UpdateFamilyResponse
 {
-    /** @var string */
-    private $id;
-
-    /** @var string */
+    private $familyId;
     private $name;
 
-    public function __construct(string $id, string $name)
+    public function __construct(FamilyId $familyId, string $name)
     {
-        $this->id = $id;
+        $this->familyId = $familyId->getValue();
         $this->name = $name;
     }
 
     /**
      * @return string
      */
-    public function getId(): string
+    public function getFamilyId(): string
     {
-        return $this->id;
+        return $this->familyId;
     }
 
     /**
