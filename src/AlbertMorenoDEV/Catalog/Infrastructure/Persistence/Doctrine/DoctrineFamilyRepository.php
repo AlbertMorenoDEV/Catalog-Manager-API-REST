@@ -30,7 +30,7 @@ class DoctrineFamilyRepository extends EntityRepository implements FamilyReposit
         $this->_em->flush(); // ToDo: Must be moved to Application layer, but where exactly?
     }
 
-    public function findById(FamilyId $familyId)
+    public function findByFamilyId(FamilyId $familyId)
     {
         return $this->find($familyId);
     }

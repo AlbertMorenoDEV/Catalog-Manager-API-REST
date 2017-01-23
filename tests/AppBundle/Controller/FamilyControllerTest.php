@@ -30,7 +30,7 @@ class FamilyControllerTest extends WebTestCase
 
     /**
      * @test
-     * @group active
+     * @group family
      */
     public function getFamiliesAction()
     {
@@ -46,14 +46,14 @@ class FamilyControllerTest extends WebTestCase
 
         $decoded = json_decode($content, true);
         $this->assertCount(1, $decoded);
-        $this->assertTrue(isset($decoded[0]['id']));
-        $this->assertEquals($family->getFamilyId()->getValue(), $decoded[0]['id']);
+        $this->assertTrue(isset($decoded[0]['familyId']));
+        $this->assertEquals($family->getFamilyId()->getValue(), $decoded[0]['familyId']);
         $this->assertEquals($family->getName(), $decoded[0]['name']);
     }
 
     /**
      * @test
-     * @group family_active
+     * @group family
      */
     public function getFamilyAction()
     {
@@ -68,9 +68,8 @@ class FamilyControllerTest extends WebTestCase
         $content = $response->getContent();
 
         $decoded = json_decode($content, true);
-        print_r($decoded);
-        $this->assertTrue(isset($decoded['id']));
-        $this->assertEquals((string)$family->getFamilyId()->getValue(), $decoded['id']);
+        $this->assertTrue(isset($decoded['familyId']));
+        $this->assertEquals((string)$family->getFamilyId()->getValue(), $decoded['familyId']);
         $this->assertEquals($family->getName(), $decoded['name']);
     }
 

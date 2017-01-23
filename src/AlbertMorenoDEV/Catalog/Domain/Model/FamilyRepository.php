@@ -10,5 +10,5 @@ interface FamilyRepository
     public function update(Family $family);
     public function remove(Family $family);
     public function findAll();
-    public function findById(FamilyId $familyId);
+    public function findByFamilyId(FamilyId $familyId);
 }

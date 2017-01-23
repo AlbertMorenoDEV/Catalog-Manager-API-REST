@@ -23,7 +23,7 @@ abstract class ProductService
 
     protected function findFamilyOrFail(FamilyId $familyId): Family
     {
-        $family = $this->familyRepository->findById($familyId);
+        $family = $this->familyRepository->findByFamilyId($familyId);
         if ($family === null) {
             throw new FamilyNotFoundException('No family found for id '.$familyId->getValue());
         }

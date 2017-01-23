@@ -3,11 +3,16 @@ namespace AppBundle\Controller;
 
 use AMD\Catalog\Application\AddFamilyRequest;
 use AMD\Catalog\Application\AddFamilyService;
+use AMD\Catalog\Application\FamilyResponse;
+use AMD\Catalog\Application\FamilyResponseCollection;
+use AMD\Catalog\Application\FindAllFamiliesQuery;
+use AMD\Catalog\Application\FindFamilyByFamilyIdQuery;
 use AMD\Catalog\Application\RemoveFamilyRequest;
 use AMD\Catalog\Application\RemoveFamilyService;
 use AMD\Catalog\Application\UpdateFamilyRequest;
 use AMD\Catalog\Application\UpdateFamilyService;
 use AMD\Catalog\Domain\Model\Family;
+use AMD\Catalog\Domain\Model\Family\FamilyId;
 use AMD\Catalog\Domain\Model\FamilyNotFoundException;
 use AMD\Catalog\Domain\Model\InvalidFamilyDataException;
 use AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineFamilyRepository;
@@ -32,11 +37,9 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
      */
     public function cgetAction()
     {
-        $repository = $this->getDoctrine()->getRepository(Family::class);
+        $query = new FindAllFamiliesQuery($this->getDoctrine()->getRepository(Family::class));
 
-        $families = $repository->findAll();
-
-        return $this->json($families);
+        return $this->json(FamilyResponseCollection::createFromFamilyArray($query->execute())->getItems());
     }
 
     /**
@@ -57,15 +60,17 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
      */
     public function getAction($familyId)
     {
-        $family = $this->getDoctrine()
-            ->getRepository(Family::class)
-            ->find($familyId);
-
-        if (!$family) {
+        $query = new FindFamilyByFamilyIdQuery(
+            $this->getDoctrine()->getRepository(Family::class),
+            FamilyId::create($familyId)
+        );
+        try {
+            $family = $query->execute();
+        } catch (FamilyNotFoundException $e) {
             throw $this->createNotFoundException('No family found for id '.$familyId);
         }
 
-        return $this->json($family);
+        return $this->json(FamilyResponse::createFromFamily($family));
     }
 
     /**
