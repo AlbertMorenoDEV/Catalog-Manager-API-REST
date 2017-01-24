@@ -6,14 +6,12 @@ use AMD\Catalog\Domain\Model\Product\ProductId;
 
 class AddProductService extends ProductService
 {
-    public function execute(AddProductRequest $request): AddProductResponse
+    public function execute(AddProductRequest $request)
     {
-        $family = $this->findFamilyOrFail(FamilyId::create($request->getFamilyId()));
+        $family = $this->findFamilyOrFail($request->getFamilyId());
 
-        $product = $family->makeProduct(ProductId::create($request->getId()), $request->getDescription());
+        $product = $family->makeProduct($request->getProductId(), $request->getDescription());
 
         $this->productRepository->add($product);
-
-        return new AddProductResponse($product->getProductId()->getValue(), $product->getDescription(), $product->getFamilyId()->getValue());
     }
 }

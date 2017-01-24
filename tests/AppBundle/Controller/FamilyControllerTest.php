@@ -202,7 +202,7 @@ class FamilyControllerTest extends WebTestCase
 
         $this->client->request('DELETE', $route, ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
-        $this->assertJsonResponse($response, Response::HTTP_OK);
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode(), $response->getContent());
     }
 
     /**
@@ -215,7 +215,7 @@ class FamilyControllerTest extends WebTestCase
 
         $this->client->request('DELETE', $route, ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
-        $this->assertJsonResponse($response, Response::HTTP_NOT_FOUND);
+        $this->assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode(), $response->getContent());
     }
 
     protected function assertJsonResponse(Response $response, $statusCode = 200, $checkValidJson =  true)

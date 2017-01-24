@@ -33,7 +33,7 @@ abstract class ProductService
 
     protected function findProductOrFail(ProductId $productId): Product
     {
-        $product = $this->productRepository->findById($productId);
+        $product = $this->productRepository->findByProductId($productId);
         if ($product === null) {
             throw new ProductNotFoundException('No product found for id '.$productId->getValue());
         }

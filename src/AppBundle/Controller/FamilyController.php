@@ -96,8 +96,11 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
         $createFamilyService = new AddFamilyService($repository);
 
         try {
-            $response = $createFamilyService->execute(new AddFamilyRequest($request->get('family_id'), $request->get('name')));
-            return $this->json($response, Response::HTTP_CREATED);
+            $createFamilyService->execute(new AddFamilyRequest(
+                $request->get('family_id'),
+                $request->get('name'))
+            );
+            return $this->json([], Response::HTTP_CREATED);
         } catch (InvalidFamilyDataException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         }
@@ -129,8 +132,8 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
         $updateFamilyService = new UpdateFamilyService($repository);
 
         try {
-            $response = $updateFamilyService->execute(new UpdateFamilyRequest($familyId, $request->get('name')));
-            return $this->json($response, Response::HTTP_OK);
+            $updateFamilyService->execute(new UpdateFamilyRequest($familyId, $request->get('name')));
+            return $this->json([], Response::HTTP_OK);
         } catch (FamilyNotFoundException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);
         } catch (InvalidFamilyDataException $e) {
@@ -162,8 +165,8 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
         $removeFamilyService = new RemoveFamilyService($repository);
 
         try {
-            $response = $removeFamilyService->execute(new RemoveFamilyRequest($familyId));
-            return $this->json($response, Response::HTTP_OK);
+            $removeFamilyService->execute(new RemoveFamilyRequest($familyId));
+            return $this->json([], Response::HTTP_OK);
         } catch (FamilyNotFoundException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);
         }

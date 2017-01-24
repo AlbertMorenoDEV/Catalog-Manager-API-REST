@@ -3,6 +3,10 @@ namespace AppBundle\Controller;
 
 use AMD\Catalog\Application\AddProductRequest;
 use AMD\Catalog\Application\AddProductService;
+use AMD\Catalog\Application\FindAllProductsQuery;
+use AMD\Catalog\Application\FindProductByProductIdQuery;
+use AMD\Catalog\Application\ProductResponse;
+use AMD\Catalog\Application\ProductResponseCollection;
 use AMD\Catalog\Application\RemoveProductRequest;
 use AMD\Catalog\Application\RemoveProductService;
 use AMD\Catalog\Application\UpdateProductRequest;
@@ -11,6 +15,7 @@ use AMD\Catalog\Domain\Model\Family;
 use AMD\Catalog\Domain\Model\FamilyNotFoundException;
 use AMD\Catalog\Domain\Model\InvalidProductDataException;
 use AMD\Catalog\Domain\Model\Product;
+use AMD\Catalog\Domain\Model\Product\ProductId;
 use AMD\Catalog\Domain\Model\ProductNotFoundException;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
@@ -37,11 +42,9 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function cgetAction()
     {
-        $repository = $this->getDoctrine()->getRepository(Product::class);
+        $query = new FindAllProductsQuery($this->getDoctrine()->getRepository(Product::class));
 
-        $products = $repository->findAll();
-
-        return $this->json($products);
+        return $this->json(ProductResponseCollection::createFromProductArray($query->execute())->getItems());
     }
 
     /**
@@ -62,15 +65,17 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function getAction($productId)
     {
-        $product = $this->getDoctrine()
-            ->getRepository(Product::class)
-            ->find($productId);
-
-        if (!$product) {
+        $query = new FindProductByProductIdQuery(
+            $this->getDoctrine()->getRepository(Product::class),
+            ProductId::create($productId)
+        );
+        try {
+            $product = $query->execute();
+        } catch (ProductNotFoundException $e) {
             throw $this->createNotFoundException('No product found for id '.$productId);
         }
 
-        return $this->json($product);
+        return $this->json(ProductResponse::createFromProduct($product));
     }
 
     /**
@@ -98,8 +103,12 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $addProductService = new AddProductService($familyRepository, $productRepository);
 
         try {
-            $response = $addProductService->execute(new AddProductRequest($request->get('id'), $request->get('description'), $request->get('family_id')));
-            return $this->json($response, Response::HTTP_CREATED);
+            $addProductService->execute(new AddProductRequest(
+                $request->get('product_id'),
+                $request->get('description'),
+                $request->get('family_id'))
+            );
+            return $this->json([], Response::HTTP_CREATED);
         } catch (FamilyNotFoundException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);
         } catch (InvalidProductDataException $e) {
@@ -134,8 +143,12 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $updateFamilyService = new UpdateProductService($familyRepository, $productRepository);
 
         try {
-            $response = $updateFamilyService->execute(new UpdateProductRequest($productId, $request->get('description'), $request->get('family_id')));
-            return $this->json($response, Response::HTTP_OK);
+            $updateFamilyService->execute(new UpdateProductRequest(
+                $productId,
+                $request->get('description'),
+                $request->get('family_id')
+            ));
+            return $this->json([], Response::HTTP_OK);
         } catch (ProductNotFoundException $e) {
             // ToDo: Maybe a app controller shouldn't know about domain exception directly?
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);
@@ -171,8 +184,8 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $removeProductService = new RemoveProductService($repository);
 
         try {
-            $response = $removeProductService->execute(new RemoveProductRequest($productId));
-            return $this->json($response, Response::HTTP_OK);
+            $removeProductService->execute(new RemoveProductRequest($productId));
+            return $this->json([], Response::HTTP_OK);
         } catch (ProductNotFoundException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);
         }

@@ -15,7 +15,7 @@ class UpdateFamilyService
         $this->repository = $repository;
     }
 
-    public function execute(UpdateFamilyRequest $request): UpdateFamilyResponse
+    public function execute(UpdateFamilyRequest $request)
     {
         /** @var Family $family */
         $family = $this->repository->findByFamilyId($request->getFamilyId());
@@ -26,7 +26,5 @@ class UpdateFamilyService
 
         $family->setName($request->getName());
         $this->repository->update($family);
-
-        return new UpdateFamilyResponse($family->getFamilyId(), $family->getName());
     }
 }

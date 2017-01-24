@@ -1,44 +1,33 @@
 <?php
 namespace AMD\Catalog\Application;
 
+use AMD\Catalog\Domain\Model\Family\FamilyId;
+use AMD\Catalog\Domain\Model\Product\ProductId;
+
 class AddProductRequest
 {
-    /** @var string */
-    private $id;
-
-    /** @var string */
+    private $productId;
     private $description;
-
-    /** @var string */
     private $familyId;
 
-    public function __construct(string $id, string $description, string $familyId)
+    public function __construct(string $productId, string $description, string $familyId)
     {
-        $this->id = $id;
+        $this->productId = ProductId::create($productId);
         $this->description = $description;
-        $this->familyId = $familyId;
+        $this->familyId = FamilyId::create($familyId);
     }
 
-    /**
-     * @return string
-     */
-    public function getId(): string
+    public function getProductId(): ProductId
     {
-        return $this->id;
+        return $this->productId;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @return string
-     */
-    public function getFamilyId(): string
+    public function getFamilyId(): FamilyId
     {
         return $this->familyId;
     }

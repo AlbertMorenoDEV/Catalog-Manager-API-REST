@@ -30,7 +30,7 @@ class DoctrineProductRepository extends EntityRepository implements ProductRepos
         $this->_em->flush(); // ToDo: Must be moved to Application layer, but where exactly?
     }
 
-    public function findById(ProductId $productId)
+    public function findByProductId(ProductId $productId)
     {
         return $this->find($productId);
     }

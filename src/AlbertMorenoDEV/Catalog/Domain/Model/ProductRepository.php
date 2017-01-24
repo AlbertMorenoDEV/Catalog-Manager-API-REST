@@ -10,5 +10,5 @@ interface ProductRepository
     public function update(Product $product);
     public function remove(Product $product);
     public function findAll();
-    public function findById(ProductId $productId);
+    public function findByProductId(ProductId $productId);
 }

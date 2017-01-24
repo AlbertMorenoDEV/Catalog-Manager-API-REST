@@ -15,7 +15,7 @@ class RemoveFamilyService
         $this->repository = $repository;
     }
 
-    public function execute(RemoveFamilyRequest $request): RemoveFamilyResponse
+    public function execute(RemoveFamilyRequest $request)
     {
         /** @var Family $family */
         $family = $this->repository->findByFamilyId($request->getFamilyId());
@@ -24,10 +24,6 @@ class RemoveFamilyService
             throw new FamilyNotFoundException('No family found for id '.$request->getFamilyId());
         }
 
-        $response = new RemoveFamilyResponse($family->getFamilyId(), $family->getName());
-
         $this->repository->remove($family);
-
-        return $response;
     }
 }

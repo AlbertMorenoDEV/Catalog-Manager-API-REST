@@ -49,9 +49,12 @@ class ProductControllerTest extends WebTestCase
 
         $decoded = json_decode($content, true);
         $this->assertCount(2, $decoded);
-        $this->assertTrue(isset($decoded[0]['id']));
-        $this->assertEquals($product->getProductId()->getValue(), $decoded[0]['id']);
-        $this->assertEquals($product->getDescription(), $decoded[0]['description']);
+        $this->assertArrayHasKey('productId', $decoded[0]);
+        $this->assertArrayHasKey('description', $decoded[0]);
+        $productId = $product->getProductId()->getValue();
+        $description = $product->getDescription();
+        $this->assertTrue($productId === $decoded[0]['productId'] || $productId === $decoded[1]['productId']);
+        $this->assertTrue($description === $decoded[0]['description'] || $description === $decoded[1]['description']);
     }
 
     /**
@@ -71,8 +74,8 @@ class ProductControllerTest extends WebTestCase
         $content = $response->getContent();
 
         $decoded = json_decode($content, true);
-        $this->assertTrue(isset($decoded['id']));
-        $this->assertEquals($product->getProductId()->getValue(), $decoded[0]['id']);
+        $this->assertTrue(isset($decoded['productId']));
+        $this->assertEquals($product->getProductId()->getValue(), $decoded['productId']);
         $this->assertEquals($product->getDescription(), $decoded['description']);
     }
 
@@ -107,7 +110,7 @@ class ProductControllerTest extends WebTestCase
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode([
-                'id' => ProductId::create()->getValue(),
+                'product_id' => ProductId::create()->getValue(),
                 'description' => 'Product C',
                 'family_id' => $family->getFamilyId()->getValue(),
             ])
@@ -133,7 +136,11 @@ class ProductControllerTest extends WebTestCase
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            json_encode(['id' => ProductId::create()->getValue(), 'description' => '', 'family_id' => $family->getFamilyId()->getValue()])
+            json_encode([
+                'product_id' => ProductId::create()->getValue(),
+                'description' => '',
+                'family_id' => $family->getFamilyId()->getValue()
+            ])
         );
 
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_BAD_REQUEST, false);
@@ -145,8 +152,6 @@ class ProductControllerTest extends WebTestCase
      */
     public function postProductActionFamilyNotFound()
     {
-//        $this->markTestSkipped('ToDo: Validate family');
-
         $route = $this->getUrl('api_post_product', ['_format' => 'json']);
 
         $this->client->request(
@@ -155,7 +160,11 @@ class ProductControllerTest extends WebTestCase
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            json_encode(['id' => ProductId::create()->getValue(), 'description' => '', 'family_id' => FamilyId::create()->getValue()])
+            json_encode([
+                'product_id' => ProductId::create()->getValue(),
+                'description' => '',
+                'family_id' => FamilyId::create()->getValue()
+            ])
         );
 
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_NOT_FOUND, false);
@@ -163,6 +172,7 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @test
+     * @group product
      */
     public function putProductActionShouldModify()
     {
@@ -239,7 +249,11 @@ class ProductControllerTest extends WebTestCase
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            json_encode(['id' => ProductId::create()->getValue(), 'description' => 'Product AA', 'family_id' => FamilyId::create()->getValue()])
+            json_encode([
+                'id' => ProductId::create()->getValue(),
+                'description' => 'Product AA',
+                'family_id' => FamilyId::create()->getValue()
+            ])
         );
 
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_NOT_FOUND, false);
@@ -258,7 +272,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->client->request('DELETE', $route, ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
-        $this->assertJsonResponse($response, Response::HTTP_OK);
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode(), $response->getContent());
     }
 
     /**
@@ -271,7 +285,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->client->request('DELETE', $route, ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
-        $this->assertJsonResponse($response, Response::HTTP_NOT_FOUND);
+        $this->assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode(), $response->getContent());
     }
 
     protected function assertJsonResponse(Response $response, $statusCode = 200, $checkValidJson =  true)
