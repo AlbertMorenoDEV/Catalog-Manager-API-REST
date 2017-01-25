@@ -1,1 +1,7 @@
-#WIP Test project. Catalog API REST, on Symfony, with DDD, CQRS, ES
+#Catalog Manager API REST (WIP playground project)
+
+* Symfony
+* Doctrine
+* DDD
+* CQRS
+* ES
