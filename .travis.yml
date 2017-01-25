@@ -17,11 +17,11 @@ mysql:
     password: symfony
     encoding: utf8
 
-before_install:
-    - sudo apt-get update > /dev/null
+#before_install:
+#    - sudo apt-get update > /dev/null
 
 install:
-    - sudo apt-get install -y --force-yes php7.0-mysql
+#    - sudo apt-get install -y --force-yes php7.0-mysql
     - composer install --no-interaction
 
 before_script:
