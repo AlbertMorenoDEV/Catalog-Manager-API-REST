@@ -16,8 +16,8 @@ matrix:
 
 mysql:
     adapter: mysql2
-    database: symfony
-    username: symfony
+    database: travis_ci
+    username: travis
     encoding: utf8
 
 #before_install:
