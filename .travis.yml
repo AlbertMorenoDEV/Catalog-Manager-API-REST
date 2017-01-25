@@ -25,7 +25,7 @@ install:
     - composer install --no-interaction
 
 before_script:
-    - mysql -e 'CREATE DATABASE symfony;'
-    - mysql -e 'CREATE USER "symfony"@"localhost" IDENTIFIED BY "symfony";'
-    - mysql -e 'GRANT ALL PRIVILEGES ON "symfony" TO "symfony"@"localhost";'
-    - mysql -e 'FLUSH PRIVILEGES;'
+    - mysql -uroot -p616012030 -e 'CREATE DATABASE symfony;'
+    - mysql -uroot -p616012030 -e 'CREATE USER "symfony"@"localhost" IDENTIFIED BY "symfony";'
+    - mysql -uroot -p616012030 -e 'GRANT ALL PRIVILEGES ON `symfony`.* TO "symfony"@"localhost";'
+    - mysql -uroot -p616012030 -e 'FLUSH PRIVILEGES;'
