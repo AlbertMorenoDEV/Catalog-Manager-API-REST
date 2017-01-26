@@ -8,6 +8,7 @@
 * CQRS
 * ES
 
+
 Tools:
 * Message Bus: https://github.com/SimpleBus/MessageBus
 * Mutant testing: https://github.com/padraic/humbug
