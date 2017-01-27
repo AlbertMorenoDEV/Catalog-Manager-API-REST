@@ -15,13 +15,13 @@ matrix:
         - php: hhvm
 
 mysql:
-    database: travis_ci
-    username: travis
+    database: catalog_manager
+    username: catalog_manager
     encoding: utf8
 
 install:
     - composer install --no-interaction
 
 before_script:
-    - mysql -e 'CREATE DATABASE symfony;'
+    - mysql -e 'CREATE DATABASE catalog_manager;'
     - bin/console doctrine:schema:update --force
