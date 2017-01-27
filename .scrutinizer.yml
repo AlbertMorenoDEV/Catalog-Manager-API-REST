@@ -150,10 +150,10 @@ build:
       - mysql -u root -e 'GRANT ALL PRIVILEGES ON catalog_manager.* TO "catalog_manager"@"%"'
       - bin/console doctrine:schema:update --force
 
-    tests:
-      override:
-        -
-          command: 'phpunit --coverage-clover=coverage.xml'
-          coverage:
-            file: 'coverage.xml'
-            format: 'clover'
+  tests:
+    override:
+      -
+        command: 'phpunit --coverage-clover=coverage.xml'
+        coverage:
+          file: 'coverage.xml'
+          format: 'clover'
