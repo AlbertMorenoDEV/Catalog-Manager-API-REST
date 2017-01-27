@@ -1,9 +1,5 @@
 <?php
-namespace Tests\AppBundle\Controller;
-
-use AMD\Catalog\Domain\Model\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
-use Tests\AppBundle\Fixtures\Entity\LoadData;
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;

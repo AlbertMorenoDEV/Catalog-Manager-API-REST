@@ -1,12 +1,7 @@
 <?php
-
-namespace Tests\AppBundle\Controller;
-
-use AMD\Catalog\Domain\Model\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
 use AMD\Catalog\Domain\Model\Product;
 use AMD\Catalog\Domain\Model\Product\ProductId;
-use Tests\AppBundle\Fixtures\Entity\LoadData;
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;

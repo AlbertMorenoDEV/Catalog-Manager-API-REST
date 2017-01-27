@@ -1,5 +1,5 @@
 <?php
-namespace Tests\AppBundle\Fixtures\Entity;
+namespace Tests\functional\fixtures;
 
 use AMD\Catalog\Domain\Model\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
