@@ -14,14 +14,16 @@ matrix:
     allow_failures:
         - php: hhvm
 
-mysql:
-    database: catalog_manager
-    username: catalog_manager
-    encoding: utf8
+#mysql:
+#    database: catalog_manager
+#    username: catalog_manager
+#    encoding: utf8
 
 install:
     - composer install --no-interaction
 
 before_script:
-    - mysql -e 'CREATE DATABASE catalog_manager;'
+    - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS catalog_manager'
+    - mysql -u root -e 'CREATE USER "catalog_manager"@"%" identified by "catalog_manager"'
+    - mysql -u root -e 'GRANT ALL PRIVILEGES ON catalog_manager.* TO "catalog_manager"@"%"'
     - bin/console doctrine:schema:update --force
