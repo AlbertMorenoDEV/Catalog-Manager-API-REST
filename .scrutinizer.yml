@@ -3,7 +3,7 @@ build_failure_conditions:
     - 'issues.new.count > 10'
     - 'issues.severity(>= MAJOR).new.exists'
     - 'project.metric("scrutinizer.quality", < 9)'
-    - 'project.metric_change("scrutinizer.test_coverage", < -0.005)'
+#    - 'project.metric_change("scrutinizer.test_coverage", < -0.005)'
 checks:
   php:
     verify_property_names: true
