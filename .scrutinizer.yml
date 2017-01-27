@@ -149,6 +149,10 @@ build:
       - mysql -u root -e 'CREATE USER "catalog_manager"@"%" identified by "catalog_manager"'
       - mysql -u root -e 'GRANT ALL PRIVILEGES ON catalog_manager.* TO "catalog_manager"@"%"'
 
-  tests:
-    override:
-      - command: vendor/bin/phpunit
+    tests:
+      override:
+        -
+          command: 'phpunit --coverage-clover=coverage'
+            coverage:
+              file: 'coverage'
+                format: 'clover'
