@@ -11,10 +11,11 @@ class ProductResponseCollectionTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * @expectedException InvalidProductResponseException
      */
     public function itShouldThrowInvalidProductResponseException()
     {
+        $this->expectException(InvalidProductResponseException::class);
+
         $productResponseCollection = new ProductResponseCollection();
         $productResponseCollection->add(new Family(FamilyId::create(), 'Family A'));
     }
