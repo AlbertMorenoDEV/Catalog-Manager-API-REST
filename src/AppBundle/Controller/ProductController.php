@@ -1,8 +1,8 @@
 <?php
 namespace AppBundle\Controller;
 
-use AMD\Catalog\Application\AddProductRequest;
-use AMD\Catalog\Application\AddProductService;
+use AMD\Catalog\Application\Product\AddProductRequest;
+use AMD\Catalog\Application\Product\AddProductService;
 use AMD\Catalog\Application\FindAllProductsQuery;
 use AMD\Catalog\Application\FindProductByProductIdQuery;
 use AMD\Catalog\Application\ProductResponse;
