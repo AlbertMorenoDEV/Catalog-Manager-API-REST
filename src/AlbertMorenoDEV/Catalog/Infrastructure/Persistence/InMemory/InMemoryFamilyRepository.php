@@ -24,7 +24,7 @@ class InMemoryFamilyRepository implements FamilyRepository
     {
         foreach ($this->items as $key => $item) {
             if ($item->getFamilyId()->isEqual($family->getFamilyId())) {
-                $newFamily = new Family($family->getName(), $family->getName());
+                $newFamily = new Family($family->getFamilyId(), $family->getName());
                 $this->items[$key] = $newFamily;
                 return;
             }
