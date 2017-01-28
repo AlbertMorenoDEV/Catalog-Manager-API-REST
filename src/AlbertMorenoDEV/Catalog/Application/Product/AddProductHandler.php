@@ -1,11 +1,9 @@
 <?php
 namespace AMD\Catalog\Application\Product;
 
-use AMD\Catalog\Application\Product\ProductService;
-
-class AddProductService extends ProductService
+class AddProductHandler extends ProductService
 {
-    public function execute(AddProductRequest $request)
+    public function execute(AddProductCommand $request)
     {
         $family = $this->findFamilyOrFail($request->getFamilyId());
 

@@ -1,16 +1,16 @@
 <?php
 namespace AppBundle\Controller;
 
-use AMD\Catalog\Application\Product\AddProductRequest;
-use AMD\Catalog\Application\Product\AddProductService;
+use AMD\Catalog\Application\Product\AddProductCommand;
+use AMD\Catalog\Application\Product\AddProductHandler;
 use AMD\Catalog\Application\Product\FindAllProductsQuery;
 use AMD\Catalog\Application\Product\FindProductByProductIdQuery;
 use AMD\Catalog\Application\Product\ProductResponse;
 use AMD\Catalog\Application\Product\ProductResponseCollection;
-use AMD\Catalog\Application\Product\RemoveProductRequest;
+use AMD\Catalog\Application\Product\RemoveProductCommand;
 use AMD\Catalog\Application\Product\RemoveProductService;
-use AMD\Catalog\Application\Product\UpdateProductRequest;
-use AMD\Catalog\Application\Product\UpdateProductService;
+use AMD\Catalog\Application\Product\UpdateProductCommand;
+use AMD\Catalog\Application\Product\UpdateProductHandler;
 use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyNotFoundException;
 use AMD\Catalog\Domain\Model\Product\InvalidProductDataException;
@@ -108,10 +108,10 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $familyRepository = $entity_manager->getRepository(Family::class);
         $productRepository = $entity_manager->getRepository(Product::class);
 
-        $addProductService = new AddProductService($familyRepository, $productRepository);
+        $addProductService = new AddProductHandler($familyRepository, $productRepository);
 
         try {
-            $addProductService->execute(new AddProductRequest(
+            $addProductService->execute(new AddProductCommand(
                 $request->get('product_id'),
                 $request->get('description'),
                 $request->get('family_id'))
@@ -148,10 +148,10 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $familyRepository = $entity_manager->getRepository(Family::class);
         $productRepository = $entity_manager->getRepository(Product::class);
 
-        $updateFamilyService = new UpdateProductService($familyRepository, $productRepository);
+        $updateFamilyService = new UpdateProductHandler($familyRepository, $productRepository);
 
         try {
-            $updateFamilyService->execute(new UpdateProductRequest(
+            $updateFamilyService->execute(new UpdateProductCommand(
                 $productId,
                 $request->get('description'),
                 $request->get('family_id')
@@ -192,7 +192,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $removeProductService = new RemoveProductService($repository);
 
         try {
-            $removeProductService->execute(new RemoveProductRequest($productId));
+            $removeProductService->execute(new RemoveProductCommand($productId));
             return $this->json([], Response::HTTP_OK);
         } catch (ProductNotFoundException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);

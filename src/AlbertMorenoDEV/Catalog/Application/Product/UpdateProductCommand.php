@@ -1,7 +1,7 @@
 <?php
 namespace AMD\Catalog\Application\Product;
 
-class UpdateProductRequest
+class UpdateProductCommand
 {
     /** @var  string */
     private $id;
