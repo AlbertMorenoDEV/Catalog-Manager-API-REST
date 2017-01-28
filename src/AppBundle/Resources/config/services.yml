@@ -5,5 +5,5 @@ services:
 #        arguments:
 #            entityManager: "@doctrine.orm.entity_manager"
 #    catalog.add_family_service:
-#        class: AMD\Catalog\Application\AddFamilyService
+#        class: AMD\Catalog\Application\Family\AddFamilyService
 #        arguments: ["@catalog.family_repository"]

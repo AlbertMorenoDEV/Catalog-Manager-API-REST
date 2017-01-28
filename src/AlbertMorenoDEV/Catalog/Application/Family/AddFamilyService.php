@@ -1,5 +1,5 @@
 <?php
-namespace AMD\Catalog\Application;
+namespace AMD\Catalog\Application\Family;
 
 use AMD\Catalog\Application\Family\AddFamilyRequest;
 use AMD\Catalog\Domain\Model\Family\Family;
