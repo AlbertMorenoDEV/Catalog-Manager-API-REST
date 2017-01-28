@@ -12,7 +12,7 @@ use AMD\Catalog\Application\RemoveProductService;
 use AMD\Catalog\Application\UpdateProductRequest;
 use AMD\Catalog\Application\UpdateProductService;
 use AMD\Catalog\Domain\Model\Family\Family;
-use AMD\Catalog\Domain\Model\FamilyNotFoundException;
+use AMD\Catalog\Domain\Model\Family\FamilyNotFoundException;
 use AMD\Catalog\Domain\Model\InvalidProductDataException;
 use AMD\Catalog\Domain\Model\Product\Product;
 use AMD\Catalog\Domain\Model\Product\ProductId;
