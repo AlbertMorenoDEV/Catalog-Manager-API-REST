@@ -1,6 +1,7 @@
 <?php
-namespace AMD\Catalog\Application;
+namespace AMD\Catalog\Application\Family;
 
+use AMD\Catalog\Application\Family\FamilyResponse;
 use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
 
