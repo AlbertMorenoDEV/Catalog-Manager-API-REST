@@ -97,7 +97,6 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
      */
     public function postAction(Request $request)
     {
-        // $createFamilyService = $this->get('catalog.add_family_service');
         $entity_manager = $this->getDoctrine()->getManager();
         $repository = $entity_manager->getRepository(Family::class);
 
