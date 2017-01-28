@@ -10,7 +10,7 @@ use AMD\Catalog\Domain\Model\Product\ProductId;
 use AMD\Catalog\Domain\Model\Product\ProductNotFoundException;
 use AMD\Catalog\Domain\Model\Product\ProductRepository;
 
-abstract class ProductService
+abstract class ProductHandler
 {
     protected $familyRepository;
     protected $productRepository;

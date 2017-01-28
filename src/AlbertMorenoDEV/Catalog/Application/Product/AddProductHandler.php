@@ -1,7 +1,7 @@
 <?php
 namespace AMD\Catalog\Application\Product;
 
-class AddProductHandler extends ProductService
+class AddProductHandler extends ProductHandler
 {
     public function execute(AddProductCommand $request)
     {
