@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 use AMD\Catalog\Application\Product\AddProductRequest;
 use AMD\Catalog\Application\Product\AddProductService;
 use AMD\Catalog\Application\Product\FindAllProductsQuery;
-use AMD\Catalog\Application\FindProductByProductIdQuery;
+use AMD\Catalog\Application\Product\FindProductByProductIdQuery;
 use AMD\Catalog\Application\ProductResponse;
 use AMD\Catalog\Application\ProductResponseCollection;
 use AMD\Catalog\Application\RemoveProductRequest;
