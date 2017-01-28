@@ -1,7 +1,7 @@
 <?php
 namespace AMD\Catalog\Application\Product;
 
-use AMD\Catalog\Application\ProductService;
+use AMD\Catalog\Application\Product\ProductService;
 
 class AddProductService extends ProductService
 {
