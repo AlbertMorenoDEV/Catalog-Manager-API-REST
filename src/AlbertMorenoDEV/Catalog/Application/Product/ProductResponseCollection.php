@@ -1,8 +1,5 @@
 <?php
-namespace AMD\Catalog\Application;
-
-use AMD\Catalog\Application\Product\InvalidProductResponseException;
-use AMD\Catalog\Domain\Model\Product\Product;
+namespace AMD\Catalog\Application\Product;
 
 class ProductResponseCollection
 {
