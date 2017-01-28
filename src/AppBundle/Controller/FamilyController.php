@@ -1,7 +1,7 @@
 <?php
 namespace AppBundle\Controller;
 
-use AMD\Catalog\Application\AddFamilyRequest;
+use AMD\Catalog\Application\Family\AddFamilyRequest;
 use AMD\Catalog\Application\AddFamilyService;
 use AMD\Catalog\Application\FamilyResponse;
 use AMD\Catalog\Application\FamilyResponseCollection;

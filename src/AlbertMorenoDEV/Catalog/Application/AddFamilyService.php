@@ -1,6 +1,7 @@
 <?php
 namespace AMD\Catalog\Application;
 
+use AMD\Catalog\Application\Family\AddFamilyRequest;
 use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
 use AMD\Catalog\Domain\Model\Family\FamilyRepository;
