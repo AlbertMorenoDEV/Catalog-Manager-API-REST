@@ -14,14 +14,19 @@ matrix:
     allow_failures:
         - php: hhvm
 
-mysql:
-    database: travis_ci
-    username: travis
-    encoding: utf8
-
 install:
-    - composer install --no-interaction
+    - curl -s http://getcomposer.org/installer | php
+    - php composer.phar install --dev --no-interaction
+
+script:
+    - mkdir -p build/logs
+    - php vendor/bin/phpunit -c phpunit.xml.dist
 
 before_script:
-    - mysql -e 'CREATE DATABASE symfony;'
+    - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS catalog_manager'
+    - mysql -u root -e 'CREATE USER "catalog_manager"@"%" identified by "catalog_manager"'
+    - mysql -u root -e 'GRANT ALL PRIVILEGES ON catalog_manager.* TO "catalog_manager"@"%"'
     - bin/console doctrine:schema:update --force
+
+after_success:
+    - travis_retry php vendor/bin/coveralls
