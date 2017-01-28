@@ -1,5 +1,11 @@
 #Catalog Manager API REST (WIP playground project)
 
+* Symfony
+* Doctrine
+* DDD
+* CQRS
+* ES
+
 Travis CI:
 [![Build Status](https://travis-ci.org/AlbertMorenoDEV/Catalog-Manager-API-REST.svg?branch=master)](https://travis-ci.org/AlbertMorenoDEV/Catalog-Manager-API-REST)
 
@@ -10,13 +16,6 @@ Scrutinizer CI:
 
 Coveralls:
 [![Coverage Status](https://coveralls.io/repos/github/AlbertMorenoDEV/Catalog-Manager-API-REST/badge.svg?branch=master)](https://coveralls.io/github/AlbertMorenoDEV/Catalog-Manager-API-REST?branch=master)
-
-* Symfony
-* Doctrine
-* DDD
-* CQRS
-* ES
-
 
 Tools:
 * Message Bus: https://github.com/SimpleBus/MessageBus
