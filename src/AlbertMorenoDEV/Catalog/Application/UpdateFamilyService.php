@@ -3,7 +3,7 @@ namespace AMD\Catalog\Application;
 
 use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyNotFoundException;
-use AMD\Catalog\Domain\Model\FamilyRepository;
+use AMD\Catalog\Domain\Model\Family\FamilyRepository;
 
 class UpdateFamilyService
 {

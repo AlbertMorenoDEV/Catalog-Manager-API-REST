@@ -3,7 +3,7 @@ namespace AMD\Catalog\Infrastructure\Persistence\Doctrine;
 
 use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
-use AMD\Catalog\Domain\Model\FamilyRepository;
+use AMD\Catalog\Domain\Model\Family\FamilyRepository;
 use Doctrine\ORM\EntityRepository;
 
 class DoctrineFamilyRepository extends EntityRepository implements FamilyRepository

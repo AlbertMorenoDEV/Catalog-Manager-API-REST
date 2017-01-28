@@ -3,7 +3,7 @@ namespace AMD\Catalog\Infrastructure\Persistence\InMemory;
 
 use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
-use AMD\Catalog\Domain\Model\FamilyRepository;
+use AMD\Catalog\Domain\Model\Family\FamilyRepository;
 
 class InMemoryFamilyRepository implements FamilyRepository
 {

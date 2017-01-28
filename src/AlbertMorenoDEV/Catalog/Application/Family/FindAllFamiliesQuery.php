@@ -1,7 +1,7 @@
 <?php
 namespace AMD\Catalog\Application\Family;
 
-use AMD\Catalog\Domain\Model\FamilyRepository;
+use AMD\Catalog\Domain\Model\Family\FamilyRepository;
 
 class FindAllFamiliesQuery
 {
