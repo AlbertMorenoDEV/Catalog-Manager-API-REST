@@ -5,7 +5,7 @@ use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyNotFoundException;
 use AMD\Catalog\Domain\Model\Family\FamilyRepository;
 
-class UpdateFamilyService
+class UpdateFamilyHandler
 {
     /** @var FamilyRepository */
     private $repository;
@@ -15,7 +15,7 @@ class UpdateFamilyService
         $this->repository = $repository;
     }
 
-    public function execute(UpdateFamilyRequest $request)
+    public function execute(UpdateFamilyCommand $request)
     {
         /** @var Family $family */
         $family = $this->repository->findByFamilyId($request->getFamilyId());

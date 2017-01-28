@@ -1,16 +1,16 @@
 <?php
 namespace AppBundle\Controller;
 
-use AMD\Catalog\Application\Family\AddFamilyRequest;
-use AMD\Catalog\Application\Family\AddFamilyService;
+use AMD\Catalog\Application\Family\AddFamilyCommand;
+use AMD\Catalog\Application\Family\AddFamilyHandler;
 use AMD\Catalog\Application\Family\FamilyResponse;
 use AMD\Catalog\Application\Family\FamilyResponseCollection;
 use AMD\Catalog\Application\Family\FindAllFamiliesQuery;
 use AMD\Catalog\Application\Family\FindFamilyByFamilyIdQuery;
-use AMD\Catalog\Application\Family\RemoveFamilyRequest;
-use AMD\Catalog\Application\Family\RemoveFamilyService;
-use AMD\Catalog\Application\Family\UpdateFamilyRequest;
-use AMD\Catalog\Application\Family\UpdateFamilyService;
+use AMD\Catalog\Application\Family\RemoveFamilyCommand;
+use AMD\Catalog\Application\Family\RemoveFamilyHandler;
+use AMD\Catalog\Application\Family\UpdateFamilyCommand;
+use AMD\Catalog\Application\Family\UpdateFamilyHandler;
 use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
 use AMD\Catalog\Domain\Model\Family\FamilyNotFoundException;
@@ -100,10 +100,10 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
         $entity_manager = $this->getDoctrine()->getManager();
         $repository = $entity_manager->getRepository(Family::class);
 
-        $createFamilyService = new AddFamilyService($repository);
+        $createFamilyService = new AddFamilyHandler($repository);
 
         try {
-            $createFamilyService->execute(new AddFamilyRequest(
+            $createFamilyService->execute(new AddFamilyCommand(
                 $request->get('family_id'),
                 $request->get('name'))
             );
@@ -136,10 +136,10 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
         $entity_manager = $this->getDoctrine()->getManager();
         $repository = $entity_manager->getRepository(Family::class);
 
-        $updateFamilyService = new UpdateFamilyService($repository);
+        $updateFamilyService = new UpdateFamilyHandler($repository);
 
         try {
-            $updateFamilyService->execute(new UpdateFamilyRequest($familyId, $request->get('name')));
+            $updateFamilyService->execute(new UpdateFamilyCommand($familyId, $request->get('name')));
             return $this->json([], Response::HTTP_OK);
         } catch (FamilyNotFoundException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);
@@ -169,10 +169,10 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
         $entity_manager = $this->getDoctrine()->getManager();
         $repository = $entity_manager->getRepository(Family::class);
 
-        $removeFamilyService = new RemoveFamilyService($repository);
+        $removeFamilyService = new RemoveFamilyHandler($repository);
 
         try {
-            $removeFamilyService->execute(new RemoveFamilyRequest($familyId));
+            $removeFamilyService->execute(new RemoveFamilyCommand($familyId));
             return $this->json([], Response::HTTP_OK);
         } catch (FamilyNotFoundException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);

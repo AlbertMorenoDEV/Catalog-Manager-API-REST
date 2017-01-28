@@ -1,12 +1,12 @@
 <?php
 namespace AMD\Catalog\Application\Family;
 
-use AMD\Catalog\Application\Family\AddFamilyRequest;
+use AMD\Catalog\Application\Family\AddFamilyCommand;
 use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
 use AMD\Catalog\Domain\Model\Family\FamilyRepository;
 
-class AddFamilyService
+class AddFamilyHandler
 {
     /** @var \AMD\Catalog\Domain\Model\Family\FamilyRepository */
     private $repository;
@@ -16,7 +16,7 @@ class AddFamilyService
         $this->repository = $repository;
     }
 
-    public function execute(AddFamilyRequest $request)
+    public function execute(AddFamilyCommand $request)
     {
         $family = new Family($request->getFamilyId(), $request->getName());
 

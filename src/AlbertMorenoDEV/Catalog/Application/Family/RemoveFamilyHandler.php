@@ -4,7 +4,7 @@ namespace AMD\Catalog\Application\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyNotFoundException;
 use AMD\Catalog\Domain\Model\Family\FamilyRepository;
 
-class RemoveFamilyService
+class RemoveFamilyHandler
 {
     /** @var FamilyRepository */
     private $repository;
@@ -14,7 +14,7 @@ class RemoveFamilyService
         $this->repository = $repository;
     }
 
-    public function execute(RemoveFamilyRequest $request)
+    public function execute(RemoveFamilyCommand $request)
     {
         /** @var \AMD\Catalog\Domain\Model\Family\Family $family */
         $family = $this->repository->findByFamilyId($request->getFamilyId());
