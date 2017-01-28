@@ -5,7 +5,7 @@ use AMD\Catalog\Domain\Model\Product\ProductId;
 use AMD\Catalog\Domain\Model\Product\ProductNotFoundException;
 use AMD\Catalog\Domain\Model\Product\ProductRepository;
 
-class RemoveProductService
+class RemoveProductHandler
 {
     /** @var \AMD\Catalog\Domain\Model\Product\ProductRepository */
     private $repository;

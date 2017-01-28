@@ -8,7 +8,7 @@ use AMD\Catalog\Application\Product\FindProductByProductIdQuery;
 use AMD\Catalog\Application\Product\ProductResponse;
 use AMD\Catalog\Application\Product\ProductResponseCollection;
 use AMD\Catalog\Application\Product\RemoveProductCommand;
-use AMD\Catalog\Application\Product\RemoveProductService;
+use AMD\Catalog\Application\Product\RemoveProductHandler;
 use AMD\Catalog\Application\Product\UpdateProductCommand;
 use AMD\Catalog\Application\Product\UpdateProductHandler;
 use AMD\Catalog\Domain\Model\Family\Family;
@@ -189,7 +189,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $entity_manager = $this->getDoctrine()->getManager();
         $repository = $entity_manager->getRepository(Product::class);
 
-        $removeProductService = new RemoveProductService($repository);
+        $removeProductService = new RemoveProductHandler($repository);
 
         try {
             $removeProductService->execute(new RemoveProductCommand($productId));
