@@ -1,5 +1,5 @@
 <?php
-namespace AMD\Catalog\Domain\Model;
+namespace AMD\Catalog\Domain\Model\Product;
 
 use AMD\Catalog\Domain\Model\Product\Product;
 use AMD\Catalog\Domain\Model\Product\ProductId;

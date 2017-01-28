@@ -1,7 +1,7 @@
 <?php
 namespace AMD\Catalog\Application;
 
-use AMD\Catalog\Domain\Model\ProductRepository;
+use AMD\Catalog\Domain\Model\Product\ProductRepository;
 
 class FindAllProductsQuery
 {

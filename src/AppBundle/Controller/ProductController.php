@@ -17,7 +17,7 @@ use AMD\Catalog\Domain\Model\Product\InvalidProductDataException;
 use AMD\Catalog\Domain\Model\Product\Product;
 use AMD\Catalog\Domain\Model\Product\ProductId;
 use AMD\Catalog\Domain\Model\Product\ProductNotFoundException;
-use AMD\Catalog\Domain\Model\ProductRepository;
+use AMD\Catalog\Domain\Model\Product\ProductRepository;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -44,7 +44,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function cgetAction()
     {
-        /** @var ProductRepository $repository */
+        /** @var \AMD\Catalog\Domain\Model\Product\ProductRepository $repository */
         $repository = $this->getDoctrine()->getRepository(Product::class);
 
         $query = new FindAllProductsQuery($repository);
@@ -70,7 +70,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function getAction($productId)
     {
-        /** @var ProductRepository $repository */
+        /** @var \AMD\Catalog\Domain\Model\Product\ProductRepository $repository */
         $repository = $this->getDoctrine()->getRepository(Product::class);
 
         /** @var ProductId $productId */

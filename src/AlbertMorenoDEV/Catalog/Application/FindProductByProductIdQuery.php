@@ -4,7 +4,7 @@ namespace AMD\Catalog\Application;
 use AMD\Catalog\Domain\Model\Product\Product;
 use AMD\Catalog\Domain\Model\Product\ProductId;
 use AMD\Catalog\Domain\Model\Product\ProductNotFoundException;
-use AMD\Catalog\Domain\Model\ProductRepository;
+use AMD\Catalog\Domain\Model\Product\ProductRepository;
 
 class FindProductByProductIdQuery
 {

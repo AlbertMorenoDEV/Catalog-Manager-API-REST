@@ -3,7 +3,7 @@ namespace AMD\Catalog\Infrastructure\Persistence\Doctrine;
 
 use AMD\Catalog\Domain\Model\Product\Product;
 use AMD\Catalog\Domain\Model\Product\ProductId;
-use AMD\Catalog\Domain\Model\ProductRepository;
+use AMD\Catalog\Domain\Model\Product\ProductRepository;
 use Doctrine\ORM\EntityRepository;
 
 class DoctrineProductRepository extends EntityRepository implements ProductRepository
