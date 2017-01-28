@@ -15,7 +15,7 @@ class ProductResponseCollection
 
     /**
      * @param Product[] $products
-     * @return ProductResponseCollection
+     * @return self
      */
     public static function createFromProductArray(array $products): self
     {

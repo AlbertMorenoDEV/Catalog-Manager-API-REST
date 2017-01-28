@@ -12,17 +12,17 @@ abstract class Uuid
         $this->id = $id ?: RamseyUuid::uuid4()->toString();
     }
 
-    public static function create($id = null)
+    public static function create($id = null): self
     {
         return new static($id);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->id;
     }
 
-    public function getValue()
+    public function getValue(): string
     {
         return $this->id;
     }
