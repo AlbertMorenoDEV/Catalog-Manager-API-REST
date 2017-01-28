@@ -6,7 +6,7 @@ use AMD\Catalog\Application\Family\AddFamilyService;
 use AMD\Catalog\Application\Family\FamilyResponse;
 use AMD\Catalog\Application\Family\FamilyResponseCollection;
 use AMD\Catalog\Application\Family\FindAllFamiliesQuery;
-use AMD\Catalog\Application\FindFamilyByFamilyIdQuery;
+use AMD\Catalog\Application\Family\FindFamilyByFamilyIdQuery;
 use AMD\Catalog\Application\RemoveFamilyRequest;
 use AMD\Catalog\Application\RemoveFamilyService;
 use AMD\Catalog\Application\UpdateFamilyRequest;
