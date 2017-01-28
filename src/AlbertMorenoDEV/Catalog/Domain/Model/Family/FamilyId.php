@@ -3,7 +3,7 @@ namespace AMD\Catalog\Domain\Model\Family;
 
 use AMD\Common\Domain\Model\Uuid;
 
-class FamilyId extends Uuid
+final class FamilyId extends Uuid
 {
 
 }
