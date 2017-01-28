@@ -1,11 +1,11 @@
 <?php
 namespace AMD\Catalog\Application;
 
-use AMD\Catalog\Domain\Model\Family;
+use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
 use AMD\Catalog\Domain\Model\FamilyNotFoundException;
 use AMD\Catalog\Domain\Model\FamilyRepository;
-use AMD\Catalog\Domain\Model\Product;
+use AMD\Catalog\Domain\Model\Product\Product;
 use AMD\Catalog\Domain\Model\Product\ProductId;
 use AMD\Catalog\Domain\Model\ProductNotFoundException;
 use AMD\Catalog\Domain\Model\ProductRepository;

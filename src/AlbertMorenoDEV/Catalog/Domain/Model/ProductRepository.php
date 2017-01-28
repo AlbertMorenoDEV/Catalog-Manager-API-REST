@@ -1,6 +1,7 @@
 <?php
 namespace AMD\Catalog\Domain\Model;
 
+use AMD\Catalog\Domain\Model\Product\Product;
 use AMD\Catalog\Domain\Model\Product\ProductId;
 
 interface ProductRepository

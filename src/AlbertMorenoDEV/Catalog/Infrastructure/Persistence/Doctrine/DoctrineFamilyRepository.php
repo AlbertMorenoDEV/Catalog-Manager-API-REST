@@ -1,7 +1,7 @@
 <?php
 namespace AMD\Catalog\Infrastructure\Persistence\Doctrine;
 
-use AMD\Catalog\Domain\Model\Family;
+use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
 use AMD\Catalog\Domain\Model\FamilyRepository;
 use Doctrine\ORM\EntityRepository;

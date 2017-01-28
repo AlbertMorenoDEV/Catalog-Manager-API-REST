@@ -2,7 +2,7 @@
 namespace AMD\Catalog\Application;
 
 use AMD\Catalog\Application\Product\InvalidProductResponseException;
-use AMD\Catalog\Domain\Model\Product;
+use AMD\Catalog\Domain\Model\Product\Product;
 
 class ProductResponseCollection
 {
@@ -14,7 +14,7 @@ class ProductResponseCollection
     }
 
     /**
-     * @param Product[] $products
+     * @param \AMD\Catalog\Domain\Model\Product\Product[] $products
      * @return self
      */
     public static function createFromProductArray(array $products): self

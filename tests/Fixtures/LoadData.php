@@ -1,7 +1,7 @@
 <?php
 namespace Tests\fixtures;
 
-use AMD\Catalog\Domain\Model\Family;
+use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
 use AMD\Catalog\Domain\Model\Product\ProductId;
 use Doctrine\Common\DataFixtures\AbstractFixture;

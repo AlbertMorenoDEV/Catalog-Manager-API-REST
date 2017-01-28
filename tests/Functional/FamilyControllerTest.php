@@ -33,7 +33,7 @@ class FamilyControllerTest extends WebTestCase
      */
     public function getFamiliesAction()
     {
-        /** @var \AMD\Catalog\Domain\Model\Family $family */
+        /** @var \AMD\Catalog\Domain\Model\Family\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
         $route = $this->getUrl('api_get_families', ['_format' => 'json']);
@@ -56,7 +56,7 @@ class FamilyControllerTest extends WebTestCase
      */
     public function getFamilyAction()
     {
-        /** @var \AMD\Catalog\Domain\Model\Family $family */
+        /** @var \AMD\Catalog\Domain\Model\Family\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
         $route = $this->getUrl('api_get_family', ['familyId' => (string)$family->getFamilyId()->getValue(), '_format' => 'json']);
@@ -131,7 +131,7 @@ class FamilyControllerTest extends WebTestCase
      */
     public function putFamilyActionShouldModify()
     {
-        /** @var \AMD\Catalog\Domain\Model\Family $family */
+        /** @var \AMD\Catalog\Domain\Model\Family\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
         $route = $this->getUrl('api_put_family', ['familyId' => (string)$family->getFamilyId()->getValue(), '_format' => 'json']);
@@ -153,7 +153,7 @@ class FamilyControllerTest extends WebTestCase
      */
     public function putFamilyActionBadParameters()
     {
-        /** @var \AMD\Catalog\Domain\Model\Family $family */
+        /** @var \AMD\Catalog\Domain\Model\Family\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
         $route = $this->getUrl('api_put_family', ['familyId' => $family->getFamilyId()->getValue(), '_format' => 'json']);
@@ -194,7 +194,7 @@ class FamilyControllerTest extends WebTestCase
      */
     public function deleteFamilyAction()
     {
-        /** @var \AMD\Catalog\Domain\Model\Family $family */
+        /** @var \AMD\Catalog\Domain\Model\Family\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
         $route = $this->getUrl('api_get_family', ['familyId' => $family->getFamilyId()->getValue(), '_format' => 'json']);

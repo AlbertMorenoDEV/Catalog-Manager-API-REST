@@ -11,7 +11,7 @@ use AMD\Catalog\Application\RemoveFamilyRequest;
 use AMD\Catalog\Application\RemoveFamilyService;
 use AMD\Catalog\Application\UpdateFamilyRequest;
 use AMD\Catalog\Application\UpdateFamilyService;
-use AMD\Catalog\Domain\Model\Family;
+use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
 use AMD\Catalog\Domain\Model\FamilyNotFoundException;
 use AMD\Catalog\Domain\Model\InvalidFamilyDataException;

@@ -1,4 +1,4 @@
-AMD\Catalog\Domain\Model\Product:
+AMD\Catalog\Domain\Model\Product\Product:
     type: entity
     table: product
     repositoryClass: AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineProductRepository

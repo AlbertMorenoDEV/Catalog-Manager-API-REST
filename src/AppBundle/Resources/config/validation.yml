@@ -1,4 +1,4 @@
-AMD\Catalog\Domain\Model\Family:
+AMD\Catalog\Domain\Model\Family\Family:
     properties:
         name:
             - NotBlank: ~
@@ -9,7 +9,7 @@ AMD\Catalog\Domain\Model\Family:
                 minMessage: "The name must be at least {{ limit }} characters length"
                 maxMessage: "The name cannot be longer than {{ limit }} characters length"
 
-AMD\Catalog\Domain\Model\Product:
+AMD\Catalog\Domain\Model\Product\Product:
     properties:
         description:
             - NotBlank: ~

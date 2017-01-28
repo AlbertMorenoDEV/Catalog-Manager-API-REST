@@ -1,4 +1,4 @@
-AMD\Catalog\Domain\Model\Family:
+AMD\Catalog\Domain\Model\Family\Family:
     type: entity
     table: family
     repositoryClass: AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineFamilyRepository

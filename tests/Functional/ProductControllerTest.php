@@ -2,7 +2,7 @@
 namespace Tests\Functional;
 
 use AMD\Catalog\Domain\Model\Family\FamilyId;
-use AMD\Catalog\Domain\Model\Product;
+use AMD\Catalog\Domain\Model\Product\Product;
 use AMD\Catalog\Domain\Model\Product\ProductId;
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
@@ -35,7 +35,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function getProductsAction()
     {
-        /** @var Product $product */
+        /** @var \AMD\Catalog\Domain\Model\Product\Product $product */
         $product = $this->fixtures->getReference('product-a');
 
         $route = $this->getUrl('api_get_products', ['_format' => 'json']);
@@ -61,7 +61,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function getProductAction()
     {
-        /** @var Product $product */
+        /** @var \AMD\Catalog\Domain\Model\Product\Product $product */
         $product = $this->fixtures->getReference('product-a');
 
         $route = $this->getUrl('api_get_product', ['productId' => $product->getProductId()->getValue(), '_format' => 'json']);
@@ -98,7 +98,7 @@ class ProductControllerTest extends WebTestCase
     {
         $route = $this->getUrl('api_post_product', ['_format' => 'json']);
 
-        /** @var \AMD\Catalog\Domain\Model\Family $family */
+        /** @var \AMD\Catalog\Domain\Model\Family\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
         $this->client->request(
@@ -125,7 +125,7 @@ class ProductControllerTest extends WebTestCase
     {
         $route = $this->getUrl('api_post_product', ['_format' => 'json']);
 
-        /** @var \AMD\Catalog\Domain\Model\Family $family */
+        /** @var \AMD\Catalog\Domain\Model\Family\Family $family */
         $family = $this->fixtures->getReference('family-a');
 
         $this->client->request(
@@ -174,7 +174,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function putProductActionShouldModify()
     {
-        /** @var Product $product */
+        /** @var \AMD\Catalog\Domain\Model\Product\Product $product */
         $product = $this->fixtures->getReference('product-a');
 
         $route = $this->getUrl('api_put_product', ['productId' => $product->getProductId()->getValue(), '_format' => 'json']);
@@ -196,7 +196,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function putProductActionBadParameters()
     {
-        /** @var Product $product */
+        /** @var \AMD\Catalog\Domain\Model\Product\Product $product */
         $product = $this->fixtures->getReference('product-a');
 
         $route = $this->getUrl('api_put_product', ['productId' => $product->getProductId()->getValue(), '_format' => 'json']);
@@ -237,7 +237,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function putProductActionFamilyNotFound()
     {
-        /** @var Product $product */
+        /** @var \AMD\Catalog\Domain\Model\Product\Product $product */
         $product = $this->fixtures->getReference('product-a');
 
         $route = $this->getUrl('api_put_product', ['productId' => $product->getProductId()->getValue(), '_format' => 'json']);
@@ -263,7 +263,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function deleteProductAction()
     {
-        /** @var Product $product */
+        /** @var \AMD\Catalog\Domain\Model\Product\Product $product */
         $product = $this->fixtures->getReference('product-a');
 
         $route = $this->getUrl('api_get_product', ['productId' => $product->getProductId()->getValue(), '_format' => 'json']);

@@ -3,7 +3,7 @@ namespace Tests\Unit;
 
 use AMD\Catalog\Application\Product\InvalidProductResponseException;
 use AMD\Catalog\Application\ProductResponseCollection;
-use AMD\Catalog\Domain\Model\Family;
+use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
 use PHPUnit_Framework_TestCase;
 

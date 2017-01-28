@@ -1,6 +1,7 @@
 <?php
 namespace AMD\Catalog\Domain\Model;
 
+use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
 
 interface FamilyRepository

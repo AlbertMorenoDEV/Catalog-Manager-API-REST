@@ -1,7 +1,7 @@
 <?php
 namespace AMD\Catalog\Application;
 
-use AMD\Catalog\Domain\Model\Product;
+use AMD\Catalog\Domain\Model\Product\Product;
 use AMD\Catalog\Domain\Model\Product\ProductId;
 use AMD\Catalog\Domain\Model\ProductNotFoundException;
 use AMD\Catalog\Domain\Model\ProductRepository;
@@ -18,7 +18,7 @@ class RemoveProductService
 
     public function execute(RemoveProductRequest $request)
     {
-        /** @var Product $product */
+        /** @var \AMD\Catalog\Domain\Model\Product\Product $product */
         $product = $this->repository->findByProductId(ProductId::create($request->getId()));
 
         if (!$product) {

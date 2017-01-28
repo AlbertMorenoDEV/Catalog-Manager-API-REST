@@ -1,7 +1,8 @@
 <?php
-namespace AMD\Catalog\Domain\Model;
+namespace AMD\Catalog\Domain\Model\Product;
+
 use AMD\Catalog\Domain\Model\Family\FamilyId;
-use AMD\Catalog\Domain\Model\Product\ProductId;
+use AMD\Catalog\Domain\Model\InvalidProductDataException;
 
 /**
  * Product
