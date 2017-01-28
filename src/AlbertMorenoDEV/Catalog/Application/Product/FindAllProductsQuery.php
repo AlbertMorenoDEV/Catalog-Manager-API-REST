@@ -1,19 +1,9 @@
 <?php
 namespace AMD\Catalog\Application\Product;
 
-use AMD\Catalog\Domain\Model\Product\ProductRepository;
+use AMD\Common\Application\Query;
 
-class FindAllProductsQuery
+class FindAllProductsQuery implements Query
 {
-    private $repository;
 
-    public function __construct(ProductRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
-    public function execute(): array
-    {
-        return $this->repository->findAll();
-    }
 }

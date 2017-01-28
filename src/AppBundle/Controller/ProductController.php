@@ -3,6 +3,7 @@ namespace AppBundle\Controller;
 
 use AMD\Catalog\Application\Product\AddProductCommand;
 use AMD\Catalog\Application\Product\AddProductHandler;
+use AMD\Catalog\Application\Product\FindAllProductsHandler;
 use AMD\Catalog\Application\Product\FindAllProductsQuery;
 use AMD\Catalog\Application\Product\FindProductByProductIdQuery;
 use AMD\Catalog\Application\Product\ProductResponse;
@@ -47,9 +48,11 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         /** @var \AMD\Catalog\Domain\Model\Product\ProductRepository $repository */
         $repository = $this->getDoctrine()->getRepository(Product::class);
 
-        $query = new FindAllProductsQuery($repository);
+        $query = new FindAllProductsQuery();
+        $handler = new FindAllProductsHandler($repository);
+        $response = $handler->handle($query);
 
-        return $this->json(ProductResponseCollection::createFromProductArray($query->execute())->getItems());
+        return $this->json($response->getItems());
     }
 
     /**
