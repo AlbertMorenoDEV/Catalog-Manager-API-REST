@@ -14,6 +14,7 @@ use AMD\Catalog\Application\UpdateFamilyService;
 use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
 use AMD\Catalog\Domain\Model\FamilyNotFoundException;
+use AMD\Catalog\Domain\Model\FamilyRepository;
 use AMD\Catalog\Domain\Model\InvalidFamilyDataException;
 use AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineFamilyRepository;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -34,10 +35,13 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
      *     200 = "Returned when successful"
      *   }
      * )
+     * @throws \LogicException
      */
     public function cgetAction()
     {
-        $query = new FindAllFamiliesQuery($this->getDoctrine()->getRepository(Family::class));
+        /** @var FamilyRepository $repository */
+        $repository = $this->getDoctrine()->getRepository(Family::class);
+        $query = new FindAllFamiliesQuery($repository);
 
         return $this->json(FamilyResponseCollection::createFromFamilyArray($query->execute())->getItems());
     }
@@ -52,18 +56,22 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
      *   }
      * )
      *
-     * @param int     $familyId      The family id
+     * @param int $familyId The family id
      *
      * @return JsonResponse
+     * @throws \LogicException
      *
      * @throws NotFoundHttpException when page not exist
      */
     public function getAction($familyId)
     {
-        $query = new FindFamilyByFamilyIdQuery(
-            $this->getDoctrine()->getRepository(Family::class),
-            FamilyId::create($familyId)
-        );
+        /** @var FamilyRepository $repository */
+        $repository = $this->getDoctrine()->getRepository(Family::class);
+
+        /** @var FamilyId $familyId */
+        $familyId = FamilyId::create($familyId);
+
+        $query = new FindFamilyByFamilyIdQuery($repository, $familyId);
         try {
             $family = $query->execute();
         } catch (FamilyNotFoundException $e) {
