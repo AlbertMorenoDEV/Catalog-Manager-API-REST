@@ -1,5 +1,5 @@
 <?php
-namespace AMD\Catalog\Application;
+namespace AMD\Catalog\Application\Product;
 
 class UpdateProductRequest
 {
