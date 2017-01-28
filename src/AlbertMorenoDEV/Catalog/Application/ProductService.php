@@ -7,7 +7,7 @@ use AMD\Catalog\Domain\Model\Family\FamilyNotFoundException;
 use AMD\Catalog\Domain\Model\Family\FamilyRepository;
 use AMD\Catalog\Domain\Model\Product\Product;
 use AMD\Catalog\Domain\Model\Product\ProductId;
-use AMD\Catalog\Domain\Model\ProductNotFoundException;
+use AMD\Catalog\Domain\Model\Product\ProductNotFoundException;
 use AMD\Catalog\Domain\Model\ProductRepository;
 
 abstract class ProductService
