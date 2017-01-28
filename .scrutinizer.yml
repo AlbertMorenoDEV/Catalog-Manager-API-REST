@@ -126,6 +126,7 @@ filter:
   excluded_paths:
     - tests/*
     - vendor/*
+    - src/AlbertMorenoDEV/Catalog/Infrastructure/*
 build:
   environment:
     hosts:
