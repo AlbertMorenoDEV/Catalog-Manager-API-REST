@@ -15,7 +15,7 @@ use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
 use AMD\Catalog\Domain\Model\Family\FamilyNotFoundException;
 use AMD\Catalog\Domain\Model\Family\FamilyRepository;
-use AMD\Catalog\Domain\Model\InvalidFamilyDataException;
+use AMD\Catalog\Domain\Model\Family\InvalidFamilyDataException;
 use AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineFamilyRepository;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
