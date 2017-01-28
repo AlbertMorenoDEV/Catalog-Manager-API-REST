@@ -14,13 +14,7 @@ matrix:
     allow_failures:
         - php: hhvm
 
-#mysql:
-#    database: catalog_manager
-#    username: catalog_manager
-#    encoding: utf8
-
 install:
-#    - composer install --no-interaction
     - curl -s http://getcomposer.org/installer | php
     - php composer.phar install --dev --no-interaction
 
