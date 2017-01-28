@@ -15,7 +15,7 @@ class FamilyResponseCollection
 
     /**
      * @param Family[] $families
-     * @return self
+     * @return \self
      */
     public static function createFromFamilyArray(array $families): self
     {

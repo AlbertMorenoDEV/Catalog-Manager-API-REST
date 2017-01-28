@@ -15,7 +15,7 @@ class ProductResponseCollection
 
     /**
      * @param \AMD\Catalog\Domain\Model\Product\Product[] $products
-     * @return self
+     * @return \self
      */
     public static function createFromProductArray(array $products): self
     {
