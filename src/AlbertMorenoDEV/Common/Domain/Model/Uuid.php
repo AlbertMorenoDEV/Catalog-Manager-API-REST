@@ -26,4 +26,9 @@ abstract class Uuid
     {
         return $this->id;
     }
+
+    public function isEqual(Uuid $otherUuid): bool
+    {
+        return $this->id === $otherUuid->getValue();
+    }
 }

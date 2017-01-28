@@ -1,8 +1,7 @@
 <?php
 namespace AMD\Catalog\Application;
 
-use AMD\Catalog\Domain\Model\Family;
-use AMD\Catalog\Domain\Model\Family\FamilyId;
+use AMD\Catalog\Application\Product\InvalidProductResponseException;
 use AMD\Catalog\Domain\Model\Product;
 
 class ProductResponseCollection
@@ -24,7 +23,7 @@ class ProductResponseCollection
 
         if (count($products)) {
             foreach ($products as $product) {
-                $new_collection->add($product);
+                $new_collection->add(ProductResponse::createFromProduct($product));
             }
         }
 
@@ -36,8 +35,21 @@ class ProductResponseCollection
         return $this->items;
     }
 
-    private function add(Product $product)
+    public function add($product)
     {
-        $this->items[] = ProductResponse::createFromProduct($product);
+        $this->assertResponseType($product);
+
+        $this->items[] = $product;
+    }
+
+    /**
+     * @param $response
+     * @throws InvalidProductResponseException
+     */
+    protected function assertResponseType($response)
+    {
+        if (false === is_a($response, ProductResponse::class)) {
+            throw new InvalidProductResponseException($response);
+        }
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace Tests\functional\fixtures;
+namespace Tests\fixtures;
 
 use AMD\Catalog\Domain\Model\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
@@ -11,7 +11,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 class LoadData extends AbstractFixture implements FixtureInterface
 {
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data Fixtures with the passed EntityManager
      *
      * @param ObjectManager $manager
      */

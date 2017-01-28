@@ -1,9 +1,12 @@
 <?php
+namespace Tests\Functional;
+
 use AMD\Catalog\Domain\Model\Family\FamilyId;
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Fixtures\LoadData;
 
 class FamilyControllerTest extends WebTestCase
 {
