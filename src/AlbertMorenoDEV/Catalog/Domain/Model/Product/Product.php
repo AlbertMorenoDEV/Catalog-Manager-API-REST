@@ -2,7 +2,7 @@
 namespace AMD\Catalog\Domain\Model\Product;
 
 use AMD\Catalog\Domain\Model\Family\FamilyId;
-use AMD\Catalog\Domain\Model\InvalidProductDataException;
+use AMD\Catalog\Domain\Model\Product\InvalidProductDataException;
 
 /**
  * Product
