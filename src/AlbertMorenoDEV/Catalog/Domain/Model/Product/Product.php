@@ -11,7 +11,6 @@ class Product
 {
     const MIN_LENGTH = 2;
     const MAX_LENGTH = 255;
-    const FORMAT = '/^[a-zA-Z0-9_ ]+$/';
 
     /**
      * @var ProductId
@@ -45,7 +44,6 @@ class Product
         $this->assertNotEmpty($description);
         $this->assertNotTooShort($description);
         $this->assertNotTooLong($description);
-        $this->assertValidFormat($description);
 
         $this->description = $description;
 
@@ -70,13 +68,6 @@ class Product
     {
         if (strlen($description) > self::MAX_LENGTH) {
             throw new InvalidProductDataException(sprintf('Description must be %d characters or less', self::MAX_LENGTH));
-        }
-    }
-
-    private function assertValidFormat($description)
-    {
-        if (preg_match(self::FORMAT, $description) !== 1) {
-            throw new InvalidProductDataException('Invalid description format');
         }
     }
 

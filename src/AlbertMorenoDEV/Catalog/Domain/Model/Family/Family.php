@@ -12,7 +12,6 @@ class Family
 {
     const MIN_LENGTH = 2;
     const MAX_LENGTH = 255;
-    const FORMAT = '/^[a-zA-Z0-9_ .]+$/';
 
     /**
      * @var FamilyId
@@ -35,7 +34,6 @@ class Family
         $this->assertNotEmpty($name);
         $this->assertNotTooShort($name);
         $this->assertNotTooLong($name);
-        $this->assertValidFormat($name);
 
         $this->name = $name;
         return $this;
@@ -64,13 +62,6 @@ class Family
     {
         if (strlen($name) > self::MAX_LENGTH) {
             throw new InvalidFamilyDataException(sprintf('Name must be %d characters or less', self::MAX_LENGTH));
-        }
-    }
-
-    private function assertValidFormat($name)
-    {
-        if (preg_match(self::FORMAT, $name) !== 1) {
-            throw new InvalidFamilyDataException('Invalid name format: '.$name);
         }
     }
 
