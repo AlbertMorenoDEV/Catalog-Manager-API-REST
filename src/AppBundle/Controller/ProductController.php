@@ -5,6 +5,7 @@ use AMD\Catalog\Application\Product\AddProductCommand;
 use AMD\Catalog\Application\Product\AddProductHandler;
 use AMD\Catalog\Application\Product\FindAllProductsHandler;
 use AMD\Catalog\Application\Product\FindAllProductsQuery;
+use AMD\Catalog\Application\Product\FindProductByProductIdHandler;
 use AMD\Catalog\Application\Product\FindProductByProductIdQuery;
 use AMD\Catalog\Application\Product\ProductResponse;
 use AMD\Catalog\Application\Product\ProductResponseCollection;
@@ -79,9 +80,11 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         /** @var ProductId $productId */
         $productId = ProductId::create($productId);
 
-        $query = new FindProductByProductIdQuery($repository, $productId);
+        $query = new FindProductByProductIdQuery($productId);
+        $handler = new FindProductByProductIdHandler($repository);
+
         try {
-            $product = $query->execute();
+            $product = $handler->handle($query);
         } catch (ProductNotFoundException $e) {
             throw $this->createNotFoundException('No product found for id '.$productId);
         }

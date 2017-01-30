@@ -3,8 +3,9 @@ namespace AMD\Catalog\Application\Product;
 
 use AMD\Catalog\Domain\Model\Product\ProductRepository;
 use AMD\Common\Application\Query;
+use AMD\Common\Application\QueryHandler;
 
-class FindAllProductsHandler
+class FindAllProductsHandler implements QueryHandler
 {
     private $repository;
 

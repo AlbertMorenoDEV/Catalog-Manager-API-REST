@@ -5,26 +5,19 @@ use AMD\Catalog\Domain\Model\Product\Product;
 use AMD\Catalog\Domain\Model\Product\ProductId;
 use AMD\Catalog\Domain\Model\Product\ProductNotFoundException;
 use AMD\Catalog\Domain\Model\Product\ProductRepository;
+use AMD\Common\Application\Query;
 
-class FindProductByProductIdQuery
+class FindProductByProductIdQuery implements Query
 {
-    private $repository;
     private $productId;
 
-    public function __construct(ProductRepository $repository, ProductId $productId)
+    public function __construct(string $productId)
     {
-        $this->repository = $repository;
-        $this->productId = $productId;
+        $this->productId = ProductId::create($productId);
     }
 
-    public function execute(): Product
+    public function getProductId(): ProductId
     {
-        $product = $this->repository->findByProductId($this->productId);
-
-        if (!$product) {
-            throw new ProductNotFoundException('No product found for id '.$this->productId);
-        }
-
-        return $product;
+        return $this->productId;
     }
 }

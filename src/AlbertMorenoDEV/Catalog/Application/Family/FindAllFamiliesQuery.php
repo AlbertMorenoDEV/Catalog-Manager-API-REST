@@ -1,19 +1,9 @@
 <?php
 namespace AMD\Catalog\Application\Family;
 
-use AMD\Catalog\Domain\Model\Family\FamilyRepository;
+use AMD\Common\Application\Query;
 
-class FindAllFamiliesQuery
+class FindAllFamiliesQuery implements Query
 {
-    private $repository;
 
-    public function __construct(FamilyRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
-    public function execute(): array
-    {
-        return $this->repository->findAll();
-    }
 }

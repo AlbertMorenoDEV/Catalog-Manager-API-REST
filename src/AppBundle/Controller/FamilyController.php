@@ -5,8 +5,10 @@ use AMD\Catalog\Application\Family\AddFamilyCommand;
 use AMD\Catalog\Application\Family\AddFamilyHandler;
 use AMD\Catalog\Application\Family\FamilyResponse;
 use AMD\Catalog\Application\Family\FamilyResponseCollection;
+use AMD\Catalog\Application\Family\FindAllFamiliesHandler;
 use AMD\Catalog\Application\Family\FindAllFamiliesQuery;
-use AMD\Catalog\Application\Family\FindFamilyByFamilyIdQuery;
+use AMD\Catalog\Application\Family\FindFamilyByIdHandler;
+use AMD\Catalog\Application\Family\FindFamilyByIdQuery;
 use AMD\Catalog\Application\Family\RemoveFamilyCommand;
 use AMD\Catalog\Application\Family\RemoveFamilyHandler;
 use AMD\Catalog\Application\Family\UpdateFamilyCommand;
@@ -41,9 +43,12 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
     {
         /** @var FamilyRepository $repository */
         $repository = $this->getDoctrine()->getRepository(Family::class);
-        $query = new FindAllFamiliesQuery($repository);
+        $query = new FindAllFamiliesQuery();
+        $handler = new FindAllFamiliesHandler($repository);
 
-        return $this->json(FamilyResponseCollection::createFromFamilyArray($query->execute())->getItems());
+        $results = $handler->handle($query);
+
+        return $this->json(FamilyResponseCollection::createFromFamilyArray($results)->getItems());
     }
 
     /**
@@ -68,12 +73,10 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
         /** @var FamilyRepository $repository */
         $repository = $this->getDoctrine()->getRepository(Family::class);
 
-        /** @var FamilyId $familyId */
-        $familyId = FamilyId::create($familyId);
-
-        $query = new FindFamilyByFamilyIdQuery($repository, $familyId);
+        $query = new FindFamilyByIdQuery($familyId);
+        $handler = new FindFamilyByIdHandler($repository);
         try {
-            $family = $query->execute();
+            $family = $handler->handle($query);
         } catch (FamilyNotFoundException $e) {
             throw $this->createNotFoundException('No family found for id '.$familyId);
         }

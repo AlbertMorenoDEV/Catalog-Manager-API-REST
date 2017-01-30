@@ -1,6 +1,7 @@
 <?php
 namespace Tests\Integration\Catalog\Application\Family;
 
+use AMD\Catalog\Application\Family\FindAllFamiliesHandler;
 use AMD\Catalog\Application\Family\FindAllFamiliesQuery;
 use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
@@ -31,9 +32,12 @@ class FindAllFamiliesQueryTest extends \PHPUnit_Framework_TestCase
     {
         $this->createFamilies(3);
 
-        $query = new FindAllFamiliesQuery($this->repository);
+        $query = new FindAllFamiliesQuery();
+        $handler = new FindAllFamiliesHandler($this->repository);
 
-        $this->assertCount(3, $query->execute());
+        $results = $handler->handle($query);
+
+        $this->assertCount(3, $results);
     }
 
     private function createFamilies($int)
