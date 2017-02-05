@@ -15,7 +15,7 @@ class RemoveProductHandler
         $this->repository = $repository;
     }
 
-    public function execute(RemoveProductCommand $request)
+    public function execute(RemoveProduct $request)
     {
         /** @var \AMD\Catalog\Domain\Model\Product\Product $product */
         $product = $this->repository->findByProductId(ProductId::create($request->getId()));

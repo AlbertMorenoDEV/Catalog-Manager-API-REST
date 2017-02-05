@@ -14,7 +14,7 @@ class RemoveFamilyHandler
         $this->repository = $repository;
     }
 
-    public function execute(RemoveFamilyCommand $request)
+    public function execute(RemoveFamily $request)
     {
         /** @var \AMD\Catalog\Domain\Model\Family\Family $family */
         $family = $this->repository->findByFamilyId($request->getFamilyId());

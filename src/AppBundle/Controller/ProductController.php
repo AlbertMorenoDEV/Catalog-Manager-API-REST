@@ -1,7 +1,7 @@
 <?php
 namespace AppBundle\Controller;
 
-use AMD\Catalog\Application\Product\AddProductCommand;
+use AMD\Catalog\Application\Product\AddProduct;
 use AMD\Catalog\Application\Product\AddProductHandler;
 use AMD\Catalog\Application\Product\FindAllProductsHandler;
 use AMD\Catalog\Application\Product\FindAllProductsQuery;
@@ -9,9 +9,9 @@ use AMD\Catalog\Application\Product\FindProductByProductIdHandler;
 use AMD\Catalog\Application\Product\FindProductByProductIdQuery;
 use AMD\Catalog\Application\Product\ProductResponse;
 use AMD\Catalog\Application\Product\ProductResponseCollection;
-use AMD\Catalog\Application\Product\RemoveProductCommand;
+use AMD\Catalog\Application\Product\RemoveProduct;
 use AMD\Catalog\Application\Product\RemoveProductHandler;
-use AMD\Catalog\Application\Product\UpdateProductCommand;
+use AMD\Catalog\Application\Product\UpdateProduct;
 use AMD\Catalog\Application\Product\UpdateProductHandler;
 use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyNotFoundException;
@@ -117,7 +117,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $addProductService = new AddProductHandler($familyRepository, $productRepository);
 
         try {
-            $addProductService->execute(new AddProductCommand(
+            $addProductService->execute(new AddProduct(
                 $request->get('product_id'),
                 $request->get('description'),
                 $request->get('family_id'))
@@ -157,7 +157,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $updateFamilyService = new UpdateProductHandler($familyRepository, $productRepository);
 
         try {
-            $updateFamilyService->execute(new UpdateProductCommand(
+            $updateFamilyService->execute(new UpdateProduct(
                 $productId,
                 $request->get('description'),
                 $request->get('family_id')
@@ -198,7 +198,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $removeProductService = new RemoveProductHandler($repository);
 
         try {
-            $removeProductService->execute(new RemoveProductCommand($productId));
+            $removeProductService->execute(new RemoveProduct($productId));
             return $this->json([], Response::HTTP_OK);
         } catch (ProductNotFoundException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);

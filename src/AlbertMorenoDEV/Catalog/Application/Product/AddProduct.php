@@ -4,7 +4,7 @@ namespace AMD\Catalog\Application\Product;
 use AMD\Catalog\Domain\Model\Family\FamilyId;
 use AMD\Catalog\Domain\Model\Product\ProductId;
 
-class AddProductCommand
+class AddProduct
 {
     private $productId;
     private $description;

@@ -1,7 +1,7 @@
 <?php
 namespace AMD\Catalog\Application\Product;
 
-class RemoveProductCommand
+class RemoveProduct
 {
     private $id;
 

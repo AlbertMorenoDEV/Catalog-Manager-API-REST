@@ -3,7 +3,7 @@ namespace AMD\Catalog\Application\Family;
 
 use AMD\Catalog\Domain\Model\Family\FamilyId;
 
-class UpdateFamilyCommand
+class UpdateFamily
 {
     private $familyId;
     private $name;

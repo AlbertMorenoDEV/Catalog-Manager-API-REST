@@ -15,7 +15,7 @@ class UpdateFamilyHandler
         $this->repository = $repository;
     }
 
-    public function execute(UpdateFamilyCommand $request)
+    public function execute(UpdateFamily $request)
     {
         /** @var Family $family */
         $family = $this->repository->findByFamilyId($request->getFamilyId());

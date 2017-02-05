@@ -6,7 +6,7 @@ use AMD\Catalog\Domain\Model\Product\ProductId;
 
 class UpdateProductHandler extends ProductHandler
 {
-    public function execute(UpdateProductCommand $request)
+    public function execute(UpdateProduct $request)
     {
         $family = $this->findFamilyOrFail(FamilyId::create($request->getFamilyId()));
         $product = $this->findProductOrFail(ProductId::create($request->getId()));
