@@ -1,7 +1,7 @@
 <?php
 namespace AMD\Catalog\Domain\Model\Product;
 
-class InvalidProductDataException extends \InvalidArgumentException
+class InvalidProductDataException extends \DomainException
 {
 
 }
