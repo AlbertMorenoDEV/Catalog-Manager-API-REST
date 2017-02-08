@@ -2,8 +2,9 @@
 namespace AMD\Catalog\Application\Family;
 
 use AMD\Catalog\Domain\Model\Family\FamilyId;
+use AMD\Common\Application\Command;
 
-class AddFamily
+class AddFamily implements Command
 {
     private $familyId;
     private $name;

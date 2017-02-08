@@ -21,6 +21,7 @@ use AMD\Catalog\Domain\Model\Family\InvalidFamilyDataException;
 use AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineFamilyRepository;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use League\Tactician\CommandBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -100,20 +101,16 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
      */
     public function postAction(Request $request)
     {
-        $entity_manager = $this->getDoctrine()->getManager();
-        $repository = $entity_manager->getRepository(Family::class);
-
-        $createFamilyService = new AddFamilyHandler($repository);
-
         try {
-            $createFamilyService->execute(new AddFamily(
+            $this->get('tactician.commandbus')->handle(new AddFamily(
                 $request->get('family_id'),
-                $request->get('name'))
-            );
-            return $this->json([], Response::HTTP_CREATED);
-        } catch (InvalidFamilyDataException $e) {
-            return $this->json(['errors' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
+                $request->get('name')
+            ));
+        } catch (\DomainException $e) {
+            return $this->json(['errors' => $e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+
+        return $this->json([], Response::HTTP_CREATED);
     }
 
     /**
