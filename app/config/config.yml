@@ -129,3 +129,9 @@ jms_serializer:
                 path: "%kernel.root_dir%/serializer/FOSUserBundle"
 
 nelmio_api_doc: ~
+
+tactician:
+    commandbus:
+        default:
+            middleware:
+                - tactician.middleware.command_handler

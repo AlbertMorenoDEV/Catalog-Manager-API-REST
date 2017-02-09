@@ -2,7 +2,6 @@
 namespace AppBundle\Controller;
 
 use AMD\Catalog\Application\Family\AddFamily;
-use AMD\Catalog\Application\Family\AddFamilyHandler;
 use AMD\Catalog\Application\Family\FamilyResponse;
 use AMD\Catalog\Application\Family\FamilyResponseCollection;
 use AMD\Catalog\Application\Family\FindAllFamiliesHandler;
@@ -14,18 +13,14 @@ use AMD\Catalog\Application\Family\RemoveFamilyHandler;
 use AMD\Catalog\Application\Family\UpdateFamily;
 use AMD\Catalog\Application\Family\UpdateFamilyHandler;
 use AMD\Catalog\Domain\Model\Family\Family;
-use AMD\Catalog\Domain\Model\Family\FamilyId;
 use AMD\Catalog\Domain\Model\Family\FamilyNotFoundException;
 use AMD\Catalog\Domain\Model\Family\FamilyRepository;
 use AMD\Catalog\Domain\Model\Family\InvalidFamilyDataException;
-use AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineFamilyRepository;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use League\Tactician\CommandBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class FamilyController extends FOSRestController implements ClassResourceInterface
@@ -102,7 +97,7 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
     public function postAction(Request $request)
     {
         try {
-            $this->get('tactician.commandbus')->handle(new AddFamily(
+            $this->get('tactician.commandbus.default')->handle(new AddFamily(
                 $request->get('family_id'),
                 $request->get('name')
             ));
