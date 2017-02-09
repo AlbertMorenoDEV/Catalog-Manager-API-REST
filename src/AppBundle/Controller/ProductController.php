@@ -1,36 +1,25 @@
 <?php
 namespace AppBundle\Controller;
 
-use AMD\Catalog\Application\Product\AddProduct;
-use AMD\Catalog\Application\Product\AddProductHandler;
+use AMD\Catalog\Application\Product\AddProductCommand;
 use AMD\Catalog\Application\Product\FindAllProductsHandler;
 use AMD\Catalog\Application\Product\FindAllProductsQuery;
 use AMD\Catalog\Application\Product\FindProductByProductIdHandler;
 use AMD\Catalog\Application\Product\FindProductByProductIdQuery;
 use AMD\Catalog\Application\Product\ProductResponse;
-use AMD\Catalog\Application\Product\ProductResponseCollection;
-use AMD\Catalog\Application\Product\RemoveProduct;
-use AMD\Catalog\Application\Product\RemoveProductHandler;
-use AMD\Catalog\Application\Product\UpdateProduct;
-use AMD\Catalog\Application\Product\UpdateProductHandler;
-use AMD\Catalog\Domain\Model\Family\Family;
+use AMD\Catalog\Application\Product\RemoveProductCommand;
+use AMD\Catalog\Application\Product\UpdateProductCommand;
 use AMD\Catalog\Domain\Model\Family\FamilyNotFoundException;
 use AMD\Catalog\Domain\Model\Product\InvalidProductDataException;
 use AMD\Catalog\Domain\Model\Product\Product;
 use AMD\Catalog\Domain\Model\Product\ProductId;
 use AMD\Catalog\Domain\Model\Product\ProductNotFoundException;
-use AMD\Catalog\Domain\Model\Product\ProductRepository;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 class ProductController extends FOSRestController implements ClassResourceInterface
 {
@@ -110,14 +99,8 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function postAction(Request $request)
     {
-        $entity_manager = $this->getDoctrine()->getManager();
-        $familyRepository = $entity_manager->getRepository(Family::class);
-        $productRepository = $entity_manager->getRepository(Product::class);
-
-        $addProductService = new AddProductHandler($familyRepository, $productRepository);
-
         try {
-            $addProductService->execute(new AddProduct(
+            $this->get('command_bus')->handle(new AddProductCommand(
                 $request->get('product_id'),
                 $request->get('description'),
                 $request->get('family_id'))
@@ -150,14 +133,8 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function putAction(Request $request, $productId)
     {
-        $entity_manager = $this->getDoctrine()->getManager();
-        $familyRepository = $entity_manager->getRepository(Family::class);
-        $productRepository = $entity_manager->getRepository(Product::class);
-
-        $updateFamilyService = new UpdateProductHandler($familyRepository, $productRepository);
-
         try {
-            $updateFamilyService->execute(new UpdateProduct(
+            $this->get('command_bus')->handle(new UpdateProductCommand(
                 $productId,
                 $request->get('description'),
                 $request->get('family_id')
@@ -192,13 +169,8 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function deleteAction($productId)
     {
-        $entity_manager = $this->getDoctrine()->getManager();
-        $repository = $entity_manager->getRepository(Product::class);
-
-        $removeProductService = new RemoveProductHandler($repository);
-
         try {
-            $removeProductService->execute(new RemoveProduct($productId));
+            $this->get('command_bus')->handle(new RemoveProductCommand($productId));
             return $this->json([], Response::HTTP_OK);
         } catch (ProductNotFoundException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);

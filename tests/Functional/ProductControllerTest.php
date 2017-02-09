@@ -2,13 +2,12 @@
 namespace Tests\Functional;
 
 use AMD\Catalog\Domain\Model\Family\FamilyId;
-use AMD\Catalog\Domain\Model\Product\Product;
 use AMD\Catalog\Domain\Model\Product\ProductId;
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Client;
-use Tests\fixtures\LoadData;
+use Tests\Fixtures\LoadData;
 
 class ProductControllerTest extends WebTestCase
 {

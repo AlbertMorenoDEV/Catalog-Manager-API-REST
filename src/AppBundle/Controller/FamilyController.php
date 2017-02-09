@@ -1,30 +1,24 @@
 <?php
 namespace AppBundle\Controller;
 
-use AMD\Catalog\Application\Family\AddFamily;
-use AMD\Catalog\Application\Family\AddFamilyHandler;
+use AMD\Catalog\Application\Family\AddFamilyCommand;
 use AMD\Catalog\Application\Family\FamilyResponse;
 use AMD\Catalog\Application\Family\FamilyResponseCollection;
 use AMD\Catalog\Application\Family\FindAllFamiliesHandler;
 use AMD\Catalog\Application\Family\FindAllFamiliesQuery;
 use AMD\Catalog\Application\Family\FindFamilyByIdHandler;
 use AMD\Catalog\Application\Family\FindFamilyByIdQuery;
-use AMD\Catalog\Application\Family\RemoveFamily;
-use AMD\Catalog\Application\Family\RemoveFamilyHandler;
-use AMD\Catalog\Application\Family\UpdateFamily;
-use AMD\Catalog\Application\Family\UpdateFamilyHandler;
+use AMD\Catalog\Application\Family\RemoveFamilyCommand;
+use AMD\Catalog\Application\Family\UpdateFamilyCommand;
 use AMD\Catalog\Domain\Model\Family\Family;
-use AMD\Catalog\Domain\Model\Family\FamilyId;
 use AMD\Catalog\Domain\Model\Family\FamilyNotFoundException;
 use AMD\Catalog\Domain\Model\Family\FamilyRepository;
 use AMD\Catalog\Domain\Model\Family\InvalidFamilyDataException;
-use AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineFamilyRepository;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpFoundation\Response
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class FamilyController extends FOSRestController implements ClassResourceInterface
@@ -100,16 +94,11 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
      */
     public function postAction(Request $request)
     {
-        $entity_manager = $this->getDoctrine()->getManager();
-        $repository = $entity_manager->getRepository(Family::class);
-
-        $createFamilyService = new AddFamilyHandler($repository);
-
         try {
-            $createFamilyService->execute(new AddFamily(
+            $this->get('command_bus')->handle(new AddFamilyCommand(
                 $request->get('family_id'),
-                $request->get('name'))
-            );
+                $request->get('name')
+            ));
             return $this->json([], Response::HTTP_CREATED);
         } catch (InvalidFamilyDataException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
@@ -136,13 +125,8 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
      */
     public function putAction(Request $request, $familyId)
     {
-        $entity_manager = $this->getDoctrine()->getManager();
-        $repository = $entity_manager->getRepository(Family::class);
-
-        $updateFamilyService = new UpdateFamilyHandler($repository);
-
         try {
-            $updateFamilyService->execute(new UpdateFamily($familyId, $request->get('name')));
+            $this->get('command_bus')->handle(new UpdateFamilyCommand($familyId, $request->get('name')));
             return $this->json([], Response::HTTP_OK);
         } catch (FamilyNotFoundException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);
@@ -169,13 +153,8 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
      */
     public function deleteAction($familyId)
     {
-        $entity_manager = $this->getDoctrine()->getManager();
-        $repository = $entity_manager->getRepository(Family::class);
-
-        $removeFamilyService = new RemoveFamilyHandler($repository);
-
         try {
-            $removeFamilyService->execute(new RemoveFamily($familyId));
+            $this->get('command_bus')->handle(new RemoveFamilyCommand($familyId));
             return $this->json([], Response::HTTP_OK);
         } catch (FamilyNotFoundException $e) {
             return $this->json(['errors' => $e->getMessage()], Response::HTTP_NOT_FOUND);

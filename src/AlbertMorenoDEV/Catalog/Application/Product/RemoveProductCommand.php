@@ -1,7 +1,9 @@
 <?php
 namespace AMD\Catalog\Application\Product;
 
-class RemoveProduct
+use AMD\Common\Application\Command;
+
+class RemoveProductCommand implements Command
 {
     private $id;
 

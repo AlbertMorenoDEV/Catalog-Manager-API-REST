@@ -4,6 +4,53 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    catalog.family_repository:
+        class: AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineFamilyRepository
+        factory:
+            - "@doctrine"
+            - getRepository
+        arguments: [ AMD\Catalog\Domain\Model\Family\Family ]
+    catalog.product_repository:
+        class: AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineProductRepository
+        factory:
+            - "@doctrine"
+            - getRepository
+        arguments: [ AMD\Catalog\Domain\Model\Product\Product ]
+    catalog.family.add_family_handler:
+        class: AMD\Catalog\Application\Family\AddFamilyHandler
+        arguments:
+            - '@catalog.family_repository'
+        tags:
+            - { name: command_handler, handles: AMD\Catalog\Application\Family\AddFamilyCommand }
+    catalog.family.update_family_handler:
+        class: AMD\Catalog\Application\Family\UpdateFamilyHandler
+        arguments:
+            - '@catalog.family_repository'
+        tags:
+            - { name: command_handler, handles: AMD\Catalog\Application\Family\UpdateFamilyCommand }
+    catalog.family.remove_family_handler:
+        class: AMD\Catalog\Application\Family\RemoveFamilyHandler
+        arguments:
+            - '@catalog.family_repository'
+        tags:
+            - { name: command_handler, handles: AMD\Catalog\Application\Family\RemoveFamilyCommand }
+    catalog.product.add_product_handler:
+        class: AMD\Catalog\Application\Product\AddProductHandler
+        arguments:
+            - '@catalog.family_repository'
+            - '@catalog.product_repository'
+        tags:
+            - { name: command_handler, handles: AMD\Catalog\Application\Product\AddProductCommand }
+    catalog.product.update_product_handler:
+        class: AMD\Catalog\Application\Product\UpdateProductHandler
+        arguments:
+            - '@catalog.family_repository'
+            - '@catalog.product_repository'
+        tags:
+            - { name: command_handler, handles: AMD\Catalog\Application\Product\UpdateProductCommand }
+    catalog.product.remove_product_handler:
+        class: AMD\Catalog\Application\Product\RemoveProductHandler
+        arguments:
+            - '@catalog.product_repository'
+        tags:
+            - { name: command_handler, handles: AMD\Catalog\Application\Product\RemoveProductCommand }

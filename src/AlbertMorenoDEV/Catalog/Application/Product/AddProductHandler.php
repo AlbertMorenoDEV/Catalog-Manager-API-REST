@@ -1,13 +1,19 @@
 <?php
 namespace AMD\Catalog\Application\Product;
 
-class AddProductHandler extends ProductHandler
-{
-    public function execute(AddProduct $request)
-    {
-        $family = $this->findFamilyOrFail($request->getFamilyId());
+use AMD\Common\Application\Command;
+use AMD\Common\Application\CommandHandler;
 
-        $product = $family->makeProduct($request->getProductId(), $request->getDescription());
+class AddProductHandler extends ProductHandler implements CommandHandler
+{
+    /**
+     * @param Command|AddProductCommand $command
+     */
+    public function handle(Command $command)
+    {
+        $family = $this->findFamilyOrFail($command->getFamilyId());
+
+        $product = $family->makeProduct($command->getProductId(), $command->getDescription());
 
         $this->productRepository->add($product);
     }

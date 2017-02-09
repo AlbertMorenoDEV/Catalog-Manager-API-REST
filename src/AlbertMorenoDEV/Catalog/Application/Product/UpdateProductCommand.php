@@ -1,7 +1,9 @@
 <?php
 namespace AMD\Catalog\Application\Product;
 
-class UpdateProduct
+use AMD\Common\Application\Command;
+
+class UpdateProductCommand implements Command
 {
     /** @var  string */
     private $id;
