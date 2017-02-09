@@ -14,17 +14,14 @@ use AMD\Catalog\Application\Family\RemoveFamilyHandler;
 use AMD\Catalog\Application\Family\UpdateFamily;
 use AMD\Catalog\Application\Family\UpdateFamilyHandler;
 use AMD\Catalog\Domain\Model\Family\Family;
-use AMD\Catalog\Domain\Model\Family\FamilyId;
 use AMD\Catalog\Domain\Model\Family\FamilyNotFoundException;
 use AMD\Catalog\Domain\Model\Family\FamilyRepository;
 use AMD\Catalog\Domain\Model\Family\InvalidFamilyDataException;
-use AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineFamilyRepository;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class FamilyController extends FOSRestController implements ClassResourceInterface

@@ -88,6 +88,7 @@ class FamilyControllerTest extends WebTestCase
     /**
      * @test
      * @group family
+     * @group active
      */
     public function postFamilyAction()
     {
