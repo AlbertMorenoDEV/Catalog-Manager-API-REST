@@ -6,15 +6,15 @@ services:
 php:
     - '7.0'
     - '7.1'
-    - hhvm
-    - nightly
+#    - hhvm
+#    - nightly
 
 matrix:
     fast_finish: true
-    allow_failures:
-        - php:
-            - hhvm
-            - nightly
+#    allow_failures:
+#        - php:
+#            - hhvm
+#            - nightly
 
 install:
     - curl -s http://getcomposer.org/installer | php
