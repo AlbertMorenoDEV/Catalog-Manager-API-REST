@@ -2,16 +2,13 @@
 namespace AppBundle\Controller;
 
 use AMD\Catalog\Application\Product\AddProductCommand;
-use AMD\Catalog\Application\Product\FindAllProductsHandler;
 use AMD\Catalog\Application\Product\FindAllProductsQuery;
-use AMD\Catalog\Application\Product\FindProductByProductIdHandler;
-use AMD\Catalog\Application\Product\FindProductByProductIdQuery;
+use AMD\Catalog\Application\Product\FindProductByIdQuery;
 use AMD\Catalog\Application\Product\ProductResponse;
 use AMD\Catalog\Application\Product\RemoveProductCommand;
 use AMD\Catalog\Application\Product\UpdateProductCommand;
 use AMD\Catalog\Domain\Model\Family\FamilyNotFoundException;
 use AMD\Catalog\Domain\Model\Product\InvalidProductDataException;
-use AMD\Catalog\Domain\Model\Product\Product;
 use AMD\Catalog\Domain\Model\Product\ProductId;
 use AMD\Catalog\Domain\Model\Product\ProductNotFoundException;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -36,12 +33,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function cgetAction()
     {
-        /** @var \AMD\Catalog\Domain\Model\Product\ProductRepository $repository */
-        $repository = $this->getDoctrine()->getRepository(Product::class);
-
-        $query = new FindAllProductsQuery();
-        $handler = new FindAllProductsHandler($repository);
-        $response = $handler->handle($query);
+        $response = $this->get('amd.query_bus')->handle(new FindAllProductsQuery());
 
         return $this->json($response->getItems());
     }
@@ -64,17 +56,11 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function getAction($productId)
     {
-        /** @var \AMD\Catalog\Domain\Model\Product\ProductRepository $repository */
-        $repository = $this->getDoctrine()->getRepository(Product::class);
-
         /** @var ProductId $productId */
         $productId = ProductId::create($productId);
 
-        $query = new FindProductByProductIdQuery($productId);
-        $handler = new FindProductByProductIdHandler($repository);
-
         try {
-            $product = $handler->handle($query);
+            $product = $this->get('amd.query_bus')->handle(new FindProductByIdQuery($productId));
         } catch (ProductNotFoundException $e) {
             throw $this->createNotFoundException('No product found for id '.$productId);
         }

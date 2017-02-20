@@ -7,7 +7,7 @@ use AMD\Catalog\Domain\Model\Product\ProductRepository;
 use AMD\Common\Application\Query;
 use AMD\Common\Application\QueryHandler;
 
-class FindProductByProductIdHandler implements QueryHandler
+class FindProductByIdHandler implements QueryHandler
 {
     private $repository;
 
@@ -17,7 +17,7 @@ class FindProductByProductIdHandler implements QueryHandler
     }
 
     /**
-     * @param Query|FindProductByProductIdQuery $query
+     * @param Query|FindProductByIdQuery $query
      * @return Product
      * @throws ProductNotFoundException
      */

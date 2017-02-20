@@ -4,15 +4,11 @@ namespace AppBundle\Controller;
 use AMD\Catalog\Application\Family\AddFamilyCommand;
 use AMD\Catalog\Application\Family\FamilyResponse;
 use AMD\Catalog\Application\Family\FamilyResponseCollection;
-use AMD\Catalog\Application\Family\FindAllFamiliesHandler;
 use AMD\Catalog\Application\Family\FindAllFamiliesQuery;
-use AMD\Catalog\Application\Family\FindFamilyByIdHandler;
 use AMD\Catalog\Application\Family\FindFamilyByIdQuery;
 use AMD\Catalog\Application\Family\RemoveFamilyCommand;
 use AMD\Catalog\Application\Family\UpdateFamilyCommand;
-use AMD\Catalog\Domain\Model\Family\Family;
 use AMD\Catalog\Domain\Model\Family\FamilyNotFoundException;
-use AMD\Catalog\Domain\Model\Family\FamilyRepository;
 use AMD\Catalog\Domain\Model\Family\InvalidFamilyDataException;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
@@ -36,12 +32,7 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
      */
     public function cgetAction()
     {
-        /** @var FamilyRepository $repository */
-        $repository = $this->getDoctrine()->getRepository(Family::class);
-        $query = new FindAllFamiliesQuery();
-        $handler = new FindAllFamiliesHandler($repository);
-
-        $results = $handler->handle($query);
+        $results = $this->get('amd.query_bus')->handle(new FindAllFamiliesQuery());
 
         return $this->json(FamilyResponseCollection::createFromFamilyArray($results)->getItems());
     }
@@ -65,13 +56,8 @@ class FamilyController extends FOSRestController implements ClassResourceInterfa
      */
     public function getAction($familyId)
     {
-        /** @var FamilyRepository $repository */
-        $repository = $this->getDoctrine()->getRepository(Family::class);
-
-        $query = new FindFamilyByIdQuery($familyId);
-        $handler = new FindFamilyByIdHandler($repository);
         try {
-            $family = $handler->handle($query);
+            $family = $this->get('amd.query_bus')->handle(new FindFamilyByIdQuery($familyId));
         } catch (FamilyNotFoundException $e) {
             throw $this->createNotFoundException('No family found for id '.$familyId);
         }

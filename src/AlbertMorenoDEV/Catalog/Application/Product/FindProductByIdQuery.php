@@ -7,7 +7,7 @@ use AMD\Catalog\Domain\Model\Product\ProductNotFoundException;
 use AMD\Catalog\Domain\Model\Product\ProductRepository;
 use AMD\Common\Application\Query;
 
-class FindProductByProductIdQuery implements Query
+class FindProductByIdQuery implements Query
 {
     private $productId;
 

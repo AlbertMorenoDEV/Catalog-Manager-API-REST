@@ -4,6 +4,10 @@ parameters:
 #    parameter_name: value
 
 services:
+    amd.query_bus:
+        class: AMD\Common\Application\QueryBus
+        arguments:
+            - '@service_container'
     catalog.family_repository:
         class: AMD\Catalog\Infrastructure\Persistence\Doctrine\DoctrineFamilyRepository
         factory:
@@ -54,3 +58,27 @@ services:
             - '@catalog.product_repository'
         tags:
             - { name: command_handler, handles: AMD\Catalog\Application\Product\RemoveProductCommand }
+    catalog.family.find_family_by_id_handler:
+        class: AMD\Catalog\Application\Family\FindFamilyByIdHandler
+        arguments:
+            - '@catalog.family_repository'
+        tags:
+            - { name: amd.query_handler, handles: AMD\Catalog\Application\Family\FindFamilyByIdQuery }
+    catalog.family.find_all_families_handler:
+        class: AMD\Catalog\Application\Family\FindAllFamiliesHandler
+        arguments:
+            - '@catalog.family_repository'
+        tags:
+            - { name: amd.query_handler, handles: AMD\Catalog\Application\Family\FindAllFamiliesQuery }
+    catalog.product.find_product_by_id_handler:
+        class: AMD\Catalog\Application\Product\FindProductByIdHandler
+        arguments:
+            - '@catalog.product_repository'
+        tags:
+            - { name: amd.query_handler, handles: AMD\Catalog\Application\Product\FindProductByIdQuery }
+    catalog.product.find_all_products_handler:
+        class: AMD\Catalog\Application\Product\FindAllProductsHandler
+        arguments:
+            - '@catalog.product_repository'
+        tags:
+            - { name: amd.query_handler, handles: AMD\Catalog\Application\Product\FindAllProductsQuery }
