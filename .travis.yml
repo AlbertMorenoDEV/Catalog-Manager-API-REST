@@ -1,3 +1,5 @@
+dist: trusty
+sudo: required
 language: php
 
 services:
@@ -16,6 +18,13 @@ matrix:
 #            - hhvm
 #            - nightly
 
+addons:
+  sonarqube:
+    token:
+      secure: "sOecC7aLpgIEDrYcy7+yc1CcGlStH6gl9cVdWYcluaON6wXeUgjdBdF26uSucH4DRS630mAYgtu4L6bN1GyicRrrW+7O71Ut/C3dvMbPhS4/5Bouv5+5pYIZCk6SWjdSHe72ifCXkv7gvGCsuSOu8HIJijbYOexwE3P7li1JZFeXKXNaNZ6Z68zXVr6kaf40i1+97YwBS6wngLdx0utxca0TWxCBJH76cHEWq+g/wtMWMHdy8Y3xOR8kMWP0Atx2dMdgmgcb/u7qMXDfBaBejcblvquGxL0G6x4GrRkjDacLDJ81z2IopKYWA1NLCWwKMgxvxZooytwYP08kbKgkCcsiCH0nEIjm4CgwR4jDA5YXCW89lhjfjXbmKFcEdMRVHyVTWJnd5TTIjW7M+MJFRvFMdxwJHCrco7EKG5Gm2lVEPfgtndq+AJkKqHa/gO7qlfCXLwIisbDJ1SYMhNz7446LYZwmqfmU0vFnZEZ8QYvF/3SH8hUDyhz4EK7+slf3ORZvT4oLsSfDGHxQ5A7uHGqHPJR0ju/9NpbhQf0H4+gA1YvaJ55dTfVXeXtoxeIaHr5JeK7vFxFJBlk0Yv+zWfN2SX9P6pyf9C9NHemfLDT80W52KoK/Y65zZtm2B0/4ZO09GalV9ejspqNyCahnVnQeDxJ1v0NRFFPxsbezbvI="
+jdk:
+  - oraclejdk8
+
 install:
     - curl -s http://getcomposer.org/installer | php
     - php composer.phar install --dev --no-interaction
@@ -23,6 +32,11 @@ install:
 script:
     - mkdir -p build/logs
     - php vendor/bin/phpunit -c phpunit.xml.dist
+    - sonar-scanner
+
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
 
 before_script:
     - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS catalog_manager'
