@@ -1,0 +1,42 @@
+version: '2'
+services:
+  db:
+    container_name: amd_catalog_db
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: amd_catalog
+      MYSQL_USER: amd_catalog
+      MYSQL_PASSWORD: amd_catalog
+      MYSQL_ROOT_PASSWORD:  amd_catalog
+    ports:
+      - 3306:3306
+    volumes:
+      - database:/var/lib/mysql
+  mailer:
+    image: schickling/mailcatcher
+    container_name: amd_catalog_mail
+    ports:
+      - 1080:1080
+  web:
+    build:
+      context: docker/web
+    container_name: amd_catalog_web
+    image: amd_catalog_web:v1
+    depends_on:
+      - db
+      - mailer
+    environment:
+      DATABASE_NAME: amd_catalog
+      DATABASE_USER: amd_catalog
+      DATABASE_PASSWORD: amd_catalog
+      XDEBUG_CONFIG: idekey=PHPSTORM
+      PHP_XDEBUG_ENABLED: 1
+    ports:
+      - "49100:22"
+      - "80:80"
+    extends:
+      file: docker/code.yml
+      service: web
+volumes:
+  database:
+    driver: "local"
