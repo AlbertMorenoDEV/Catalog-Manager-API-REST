@@ -1,5 +1,6 @@
 {
     "name": "albert/symfony_ddd",
+    "description": "DDD, CQRS, ES Playground project. Catalog API REST, on Symfony, with DDD, CQRS, ES",
     "license": "proprietary",
     "type": "project",
     "autoload": {
